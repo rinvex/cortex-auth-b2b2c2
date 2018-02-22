@@ -9,9 +9,9 @@ use Cortex\Auth\Models\Manager;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
+use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\B2B2C2\DataTables\Adminarea\ManagersDataTable;
 use Cortex\Auth\B2B2C2\Http\Requests\Adminarea\ManagerFormRequest;
-use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\B2B2C2\Http\Requests\Adminarea\ManagerAttributesFormRequest;
 
 class ManagersController extends AuthorizedController
@@ -89,7 +89,7 @@ class ManagersController extends AuthorizedController
      * Process the account update form.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Adminarea\ManagerAttributesFormRequest $request
-     * @param \Cortex\Auth\Models\Manager                                       $manager
+     * @param \Cortex\Auth\Models\Manager                                              $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -174,7 +174,7 @@ class ManagersController extends AuthorizedController
      * Store new manager.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Adminarea\ManagerFormRequest $request
-     * @param \Cortex\Auth\Models\Manager                             $manager
+     * @param \Cortex\Auth\Models\Manager                                    $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -187,7 +187,7 @@ class ManagersController extends AuthorizedController
      * Update given manager.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Adminarea\ManagerFormRequest $request
-     * @param \Cortex\Auth\Models\Manager                             $manager
+     * @param \Cortex\Auth\Models\Manager                                    $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

@@ -7,7 +7,6 @@ Route::domain(domain())->group(function () {
          ->middleware(['web', 'nohttpcache'])
          ->namespace('Cortex\Auth\B2B2C2\Http\Controllers\Adminarea')
          ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.adminarea') : config('cortex.foundation.route.prefix.adminarea'))->group(function () {
-
              Route::middleware(['can:access-adminarea'])->group(function () {
 
                  // Members Routes
@@ -39,7 +38,6 @@ Route::domain(domain())->group(function () {
                      Route::delete('{manager}')->name('destroy')->uses('ManagersController@destroy');
                      Route::delete('{manager}/media/{media}')->name('media.destroy')->uses('ManagersMediaController@destroy');
                  });
-
              });
          });
 });

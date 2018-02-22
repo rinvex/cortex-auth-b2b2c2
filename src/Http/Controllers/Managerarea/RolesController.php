@@ -104,7 +104,7 @@ class RolesController extends AuthorizedController
      * Store new role.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Managerarea\RoleFormProcessRequest $request
-     * @param \Cortex\Auth\Models\Role                               $role
+     * @param \Cortex\Auth\Models\Role                                             $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -117,7 +117,7 @@ class RolesController extends AuthorizedController
      * Update given role.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Managerarea\RoleFormProcessRequest $request
-     * @param \Cortex\Auth\Models\Role                               $role
+     * @param \Cortex\Auth\Models\Role                                             $role
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

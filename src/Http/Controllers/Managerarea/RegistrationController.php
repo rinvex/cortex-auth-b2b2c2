@@ -38,7 +38,7 @@ class RegistrationController extends AbstractController
      * Process the registration form.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Managerarea\RegistrationProcessRequest $request
-     * @param \Cortex\Auth\Models\Manager                                        $manager
+     * @param \Cortex\Auth\Models\Manager                                              $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
