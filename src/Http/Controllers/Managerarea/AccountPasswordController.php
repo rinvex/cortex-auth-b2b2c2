@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\B2B2C2\Http\Controllers\Managerarea;
 
-use Cortex\Auth\B2B2C2\Http\Requests\Managerarea\AccountPasswordRequest;
 use Cortex\Foundation\Http\Controllers\AuthenticatedController;
+use Cortex\Auth\B2B2C2\Http\Requests\Managerarea\AccountPasswordRequest;
 
 class AccountPasswordController extends AuthenticatedController
 {

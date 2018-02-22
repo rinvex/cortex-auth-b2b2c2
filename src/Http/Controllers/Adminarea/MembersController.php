@@ -9,9 +9,9 @@ use Cortex\Auth\Models\Member;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
+use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\B2B2C2\DataTables\Adminarea\MembersDataTable;
 use Cortex\Auth\B2B2C2\Http\Requests\Adminarea\MemberFormRequest;
-use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\B2B2C2\Http\Requests\Adminarea\MemberAttributesFormRequest;
 
 class MembersController extends AuthorizedController
@@ -89,7 +89,7 @@ class MembersController extends AuthorizedController
      * Process the account update form.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Adminarea\MemberAttributesFormRequest $request
-     * @param \Cortex\Auth\Models\Member                                       $member
+     * @param \Cortex\Auth\Models\Member                                              $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -171,7 +171,7 @@ class MembersController extends AuthorizedController
      * Store new member.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Adminarea\MemberFormRequest $request
-     * @param \Cortex\Auth\Models\Member                             $member
+     * @param \Cortex\Auth\Models\Member                                    $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -184,7 +184,7 @@ class MembersController extends AuthorizedController
      * Update given member.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Adminarea\MemberFormRequest $request
-     * @param \Cortex\Auth\Models\Member                             $member
+     * @param \Cortex\Auth\Models\Member                                    $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
