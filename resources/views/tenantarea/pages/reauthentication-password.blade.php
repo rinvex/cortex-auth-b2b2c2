@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.reauthentication') }}
+    {{ $currentTenant->name }} » {{ trans('cortex/auth::common.reauthentication') }}
 @endsection
 
 @section('body-attributes')class="auth-page"@endsection
