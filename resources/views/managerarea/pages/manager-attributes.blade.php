@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/foundation::common.managerarea') }} » {{ trans('cortex/auth::common.managers') }} » {{ $manager->username }} » {{ trans('cortex/auth::common.attributes') }}
+    {{ $currentTenant->name }} » {{ trans('cortex/foundation::common.managerarea') }} » {{ trans('cortex/auth::common.managers') }} » {{ $manager->username }} » {{ trans('cortex/auth::common.attributes') }}
 @endsection
 
 @push('inline-scripts')

@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.register') }}
+    {{ $currentTenant->name }} » {{ trans('cortex/auth::common.register') }}
 @endsection
 
 {{-- Scripts --}}

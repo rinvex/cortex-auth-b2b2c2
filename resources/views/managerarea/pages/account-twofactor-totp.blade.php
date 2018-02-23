@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::twofactor.configure') }}
+    {{ $currentTenant->name }} » {{ trans('cortex/auth::twofactor.configure') }}
 @endsection
 
 @push('inline-scripts')

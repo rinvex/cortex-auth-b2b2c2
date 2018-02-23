@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.password_reset') }}
+    {{ $currentTenant->name }} » {{ trans('cortex/auth::common.password_reset') }}
 @endsection
 
 {{-- Scripts --}}
@@ -16,7 +16,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ route('frontarea.home') }}"><b>{{ config('app.name') }}</b></a>
+            <a href="{{ route('frontarea.home') }}"><b>{{ $currentTenant->name }}</b></a>
         </div>
 
         <div class="login-box-body">

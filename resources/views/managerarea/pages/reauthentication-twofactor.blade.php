@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.reauthentication') }}
+    {{ $currentTenant->name }} » {{ trans('cortex/auth::common.reauthentication') }}
 @endsection
 
 {{-- Main Content --}}
@@ -11,7 +11,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ route('frontarea.home') }}"><b>{{ config('app.name') }}</b></a>
+            <a href="{{ route('frontarea.home') }}"><b>{{ $currentTenant->name }}</b></a>
         </div>
 
         <div class="login-box-body">
