@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Cortex\Auth\B2B2C2\Http\Controllers\Frontarea;
 
 use Cortex\Auth\Models\Manager;
-use Cortex\Tenants\Models\Tenant;
 use Illuminate\Auth\Events\Registered;
 use Cortex\Foundation\Http\Controllers\AbstractController;
-use Cortex\Auth\B2B2C2\Http\Requests\Frontarea\RegistrationRequest;
-use Cortex\Auth\B2B2C2\Http\Requests\Frontarea\RegistrationProcessRequest;
+use Cortex\Auth\B2B2C2\Http\Requests\Frontarea\MemberRegistrationRequest;
+use Cortex\Auth\B2B2C2\Http\Requests\Frontarea\MemberRegistrationProcessRequest;
 
-class RegistrationController extends AbstractController
+class MemberRegistrationController extends AbstractController
 {
     /**
      * Create a new registration controller instance.
@@ -26,11 +25,11 @@ class RegistrationController extends AbstractController
     /**
      * Show the registration form.
      *
-     * @param \Cortex\Auth\B2B2C2\Http\Requests\Frontarea\RegistrationRequest $request
+     * @param \Cortex\Auth\B2B2C2\Http\Requests\Frontarea\MemberRegistrationRequest $request
      *
      * @return \Illuminate\View\View
      */
-    public function form(RegistrationRequest $request)
+    public function form(MemberRegistrationRequest $request)
     {
         $countries = collect(countries())->map(function ($country, $code) {
             return [
@@ -47,27 +46,17 @@ class RegistrationController extends AbstractController
     /**
      * Process the registration form.
      *
-     * @param \Cortex\Auth\B2B2C2\Http\Requests\Frontarea\RegistrationProcessRequest $request
-     * @param \Cortex\Auth\Models\Manager                                            $manager
-     * @param \Cortex\Tenants\Models\Tenant                                          $tenant
+     * @param \Cortex\Auth\B2B2C2\Http\Requests\Frontarea\MemberRegistrationProcessRequest $request
+     * @param \Cortex\Auth\Models\Manager                                                  $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function register(RegistrationProcessRequest $request, Manager $manager, Tenant $tenant)
+    public function register(MemberRegistrationProcessRequest $request, Manager $manager)
     {
         // Prepare registration data
-        $managerInput = $request->get('manager');
+        $data = $request->validated();
 
-        $manager->fill($managerInput)->save();
-
-        // Save tenant
-        $tenantInput = $request->get('tenant') + [
-            'user_id' => $manager->getKey(),
-            'user_type' => $manager->getMorphClass(),
-        ];
-        $tenant->fill($tenantInput)->save();
-        $manager->attachTenants($tenant);
-        $manager->assign('owner');
+        $manager->fill($data)->save();
 
         // Fire the register success event
         event(new Registered($manager));
@@ -78,7 +67,7 @@ class RegistrationController extends AbstractController
 
         // Registration completed successfully
         return intend([
-            'intended' => route('managerarea.home'),
+            'intended' => route('frontarea.home'),
             'with' => ['success' => trans('cortex/auth::messages.register.success')],
         ]);
     }

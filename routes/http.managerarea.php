@@ -13,10 +13,6 @@ Route::domain('{subdomain}.'.domain())->group(function () {
              Route::post('login')->name('login.process')->uses('AuthenticationController@login');
              Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
 
-             // Registration Routes
-             Route::get('register')->name('register')->uses('RegistrationController@form');
-             Route::post('register')->name('register.process')->uses('RegistrationController@register');
-
              // Reauthentication Routes
              Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
                  // Reauthentication Password Routes

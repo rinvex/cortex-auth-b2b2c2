@@ -7,7 +7,7 @@ namespace Cortex\Auth\B2B2C2\Http\Requests\Frontarea;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
 
-class RegistrationRequest extends FormRequest
+class TenantRegistrationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

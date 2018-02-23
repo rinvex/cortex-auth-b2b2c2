@@ -14,8 +14,10 @@ Route::domain(domain())->group(function () {
             Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
 
             // Registration Routes
-            Route::get('register')->name('register')->uses('RegistrationController@form');
-            Route::post('register')->name('register.process')->uses('RegistrationController@register');
+            Route::get('register')->name('register')->uses('MemberRegistrationController@form');
+            Route::post('register')->name('register.process')->uses('MemberRegistrationController@register');
+            Route::get('register-tenant')->name('register.tenant')->uses('TenantRegistrationController@form');
+            Route::post('register-tenant')->name('register.tenant.process')->uses('TenantRegistrationController@register');
 
             // Reauthentication Routes
             Route::name('reauthentication.')->prefix('reauthentication')->group(function () {

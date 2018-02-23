@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\B2B2C2\Http\Requests\Frontarea;
 
-class RegistrationProcessRequest extends RegistrationRequest
+class MemberRegistrationProcessRequest extends MemberRegistrationRequest
 {
     /**
      * Prepare the data for validation.
