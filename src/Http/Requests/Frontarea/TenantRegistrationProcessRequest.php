@@ -15,7 +15,9 @@ class TenantRegistrationProcessRequest extends TenantRegistrationRequest
     {
         $data = $this->all();
 
-        $data['is_active'] = ! config('cortex.auth.registration.moderated');
+        $role = app('cortex.auth.role')->where('name', 'owner')->first();
+        $data['owner']['is_active'] = ! config('cortex.auth.registration.moderated');
+        ! $role || $data['owner']['roles'] = [$role->getKey()];
 
         $this->replace($data);
     }
@@ -27,10 +29,24 @@ class TenantRegistrationProcessRequest extends TenantRegistrationRequest
      */
     public function rules(): array
     {
-        $rules = app('cortex.auth.manager')->getRules();
-        $rules['password'] = 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
-        $rules['roles'] = 'nullable|array';
+        $ownerRules = app('cortex.auth.manager')->getRules();
+        $ownerRules['password'] = 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
+        $ownerRules = array_combine(
+            array_map(function ($key) {
+                return 'owner.'.$key;
+            }, array_keys($ownerRules)), $ownerRules
+        );
 
-        return $rules;
+        $tenantRules = app('rinvex.tenants.tenant')->getRules();
+        $tenantRules = array_combine(
+            array_map(function ($key) {
+                return 'tenant.'.$key;
+            }, array_keys($tenantRules)), $tenantRules
+        );
+
+        // We set owner_id and owner_type fields in the controller
+        unset($tenantRules['tenant.owner_id'], $tenantRules['tenant.owner_type']);
+
+        return array_merge($ownerRules, $tenantRules);
     }
 }

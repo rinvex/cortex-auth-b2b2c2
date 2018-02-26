@@ -15,9 +15,7 @@ class MemberRegistrationProcessRequest extends MemberRegistrationRequest
     {
         $data = $this->all();
 
-        $role = app('cortex.auth.role')->where('slug', 'manager')->first();
-        $data['manager']['is_active'] = ! config('cortex.auth.registration.moderated');
-        ! $role || $data['manager']['roles'] = [$role->getKey()];
+        $data['is_active'] = ! config('cortex.auth.registration.moderated');
 
         $this->replace($data);
     }
@@ -29,24 +27,10 @@ class MemberRegistrationProcessRequest extends MemberRegistrationRequest
      */
     public function rules(): array
     {
-        $managerRules = app('cortex.auth.manager')->getRules();
-        $managerRules['password'] = 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
-        $managerRules = array_combine(
-            array_map(function ($key) {
-                return 'manager.'.$key;
-            }, array_keys($managerRules)), $managerRules
-        );
+        $rules = app('cortex.auth.manager')->getRules();
+        $rules['password'] = 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
+        $rules['roles'] = 'nullable|array';
 
-        $tenantRules = app('rinvex.tenants.tenant')->getRules();
-        $tenantRules = array_combine(
-            array_map(function ($key) {
-                return 'tenant.'.$key;
-            }, array_keys($tenantRules)), $tenantRules
-        );
-
-        // We set user_id and user_type fields in the controller
-        unset($tenantRules['tenant.user_id'], $tenantRules['tenant.user_type']);
-
-        return array_merge($managerRules, $tenantRules);
+        return $rules;
     }
 }

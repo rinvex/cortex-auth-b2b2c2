@@ -32,7 +32,7 @@ class TenantRegistrationController extends AbstractController
      */
     public function form(TenantRegistrationRequest $request)
     {
-        return view('cortex/auth::frontarea.pages.registration');
+        return view('cortex/auth::frontarea.pages.registration-tenant');
     }
 
     /**
