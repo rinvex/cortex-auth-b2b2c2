@@ -37,7 +37,7 @@
                             <div class="panel wizard-step">
                                 <div>
                                     <h4 class="wizard-step-title">
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{ trans('cortex/auth::common.manager_account') }}</a>
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{ trans('cortex/auth::common.owner_account') }}</a>
                                     </h4>
                                 </div>
                                 <div id="collapseOne" class="collapse in">
