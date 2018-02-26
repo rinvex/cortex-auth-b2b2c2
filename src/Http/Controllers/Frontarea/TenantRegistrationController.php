@@ -32,7 +32,16 @@ class TenantRegistrationController extends AbstractController
      */
     public function form(TenantRegistrationRequest $request)
     {
-        return view('cortex/auth::frontarea.pages.registration-tenant');
+        $countries = collect(countries())->map(function ($country, $code) {
+            return [
+                'id' => $code,
+                'text' => $country['name'],
+                'emoji' => $country['emoji'],
+            ];
+        })->values();
+        $languages = collect(languages())->pluck('name', 'iso_639_1');
+
+        return view('cortex/auth::frontarea.pages.registration-tenant', compact('countries', 'languages'));
     }
 
     /**

@@ -31,16 +31,7 @@ class MemberRegistrationController extends AbstractController
      */
     public function form(MemberRegistrationRequest $request)
     {
-        $countries = collect(countries())->map(function ($country, $code) {
-            return [
-                'id' => $code,
-                'text' => $country['name'],
-                'emoji' => $country['emoji'],
-            ];
-        })->values();
-        $languages = collect(languages())->pluck('name', 'iso_639_1');
-
-        return view('cortex/auth::frontarea.pages.registration', compact('countries', 'languages'));
+        return view('cortex/auth::frontarea.pages.registration');
     }
 
     /**
