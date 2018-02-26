@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\RegistrationProcessRequest::class)->selector("#frontarea-registration-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\TenantRegistrationProcessRequest::class)->selector("#frontarea-registration-form") !!}
 
     <script>
         window.countries = {!! $countries !!};
