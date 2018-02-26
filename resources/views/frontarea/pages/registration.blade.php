@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\MemberRegistrationProcessRequest::class)->selector('#frontarea-registration-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\MemberRegistrationProcessRequest::class)->selector('#frontarea-member-registration-form') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection
@@ -24,7 +24,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('frontarea.register.process'), 'id' => 'frontarea-registration-form', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('frontarea.register.process'), 'id' => 'frontarea-member-registration-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/auth::common.account_register') }}</strong></div>
 

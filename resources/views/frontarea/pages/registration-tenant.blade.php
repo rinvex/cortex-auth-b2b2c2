@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\TenantRegistrationProcessRequest::class)->selector("#frontarea-registration-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\TenantRegistrationProcessRequest::class)->selector("#frontarea-tenant-registration-form") !!}
 
     <script>
         window.countries = {!! $countries !!};
@@ -29,7 +29,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('frontarea.register.process'), 'id' => 'frontarea-registration-form', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('frontarea.register.tenant.process'), 'id' => 'frontarea-tenant-registration-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/auth::common.account_register') }}</strong></div>
 
