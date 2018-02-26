@@ -49,7 +49,7 @@ class MemberFormRequest extends FormRequest
         }
 
         // Set abilities
-        if ($data['abilities']) {
+        if (! empty($data['abilities'])) {
             if ($this->user($this->route('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
                 $abilities = array_map('intval', $this->get('abilities', []));
                 $data['abilities'] = $this->user($this->route('guard'))->can('superadmin') ? $abilities
