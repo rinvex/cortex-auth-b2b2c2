@@ -48,35 +48,35 @@ class TenantRegistrationController extends AbstractController
      * Process the registration form.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Frontarea\TenantRegistrationProcessRequest $request
-     * @param \Cortex\Auth\Models\Manager                                                  $manager
+     * @param \Cortex\Auth\Models\Manager                                                  $owner
      * @param \Cortex\Tenants\Models\Tenant                                                $tenant
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function register(TenantRegistrationProcessRequest $request, Manager $manager, Tenant $tenant)
+    public function register(TenantRegistrationProcessRequest $request, Manager $owner, Tenant $tenant)
     {
         // Prepare registration data
-        $managerData = $request->validated()['user'];
+        $ownerData = $request->validated()['owner'];
         $tenantData = $request->validated()['tenant'];
 
-        $manager->fill($managerData)->save();
+        $owner->fill($ownerData)->save();
 
         // Save tenant
-        $tenantData['owner_id'] = $manager->getKey();
-        $tenantData['owner_type'] = $manager->getMorphClass();
+        $tenantData['owner_id'] = $owner->getKey();
+        $tenantData['owner_type'] = $owner->getMorphClass();
         $tenant->fill($tenantData)->save();
-        $manager->attachTenants($tenant);
-        $manager->assign('owner');
+        $owner->attachTenants($tenant);
+        $owner->assign('owner');
 
         // Fire the register success event
-        event(new Registered($manager));
+        event(new Registered($owner));
 
         // Send verification if required
         ! config('cortex.auth.emails.verification')
-        || app('rinvex.auth.emailverification')->broker($this->getBroker())->sendVerificationLink(['email' => $manager->email]);
+        || app('rinvex.auth.emailverification')->broker($this->getBroker())->sendVerificationLink(['email' => $owner->email]);
 
-        // Auto-login registered manager
-        auth()->guard($this->getGuard())->login($manager);
+        // Auto-login registered owner
+        auth()->guard($this->getGuard())->login($owner);
 
         // Registration completed successfully
         return intend([
