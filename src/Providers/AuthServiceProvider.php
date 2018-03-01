@@ -22,7 +22,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../../routes/http.tenantarea.php');
         $this->loadRoutesFrom(__DIR__.'/../../routes/http.managerarea.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/auth');
-        $this->app->afterResolving('blade.compiler', function () {
+        $this->app->runningInConsole() || $this->app->afterResolving('blade.compiler', function () {
             require __DIR__.'/../../routes/menus.php';
         });
 
