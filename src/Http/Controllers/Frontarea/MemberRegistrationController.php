@@ -38,7 +38,7 @@ class MemberRegistrationController extends AbstractController
      * Process the registration form.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Frontarea\MemberRegistrationProcessRequest $request
-     * @param \Cortex\Auth\Models\Member                                                  $member
+     * @param \Cortex\Auth\Models\Member                                                   $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -55,6 +55,9 @@ class MemberRegistrationController extends AbstractController
         // Send verification if required
         ! config('cortex.auth.emails.verification')
         || app('rinvex.auth.emailverification')->broker($this->getEmailVerificationBroker())->sendVerificationLink(['email' => $member->email]);
+
+        // Auto-login registered member
+        auth()->guard($this->getGuard())->login($member);
 
         // Registration completed successfully
         return intend([
