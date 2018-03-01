@@ -18,13 +18,25 @@ class AccountTwoFactorPhoneRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        return true;
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param \Illuminate\Validation\Validator $validator
+     *
+     * @return void
+     */
+    public function withValidator($validator): void
+    {
         $user = $this->user($this->route('guard'));
 
-        if (! $user->phone || ! $user->phone_verified) {
-            throw new GenericException(trans('cortex/auth::messages.account.'.(! $user->phone ? 'phone_field_required' : 'phone_verification_required')), route('managerarea.account.settings'));
-        }
-
-        return true;
+        $validator->after(function ($validator) use ($user) {
+            if (! $user->phone || ! $user->phone_verified) {
+                $validator->errors()->add('phone', trans('cortex/auth::messages.account.'.(! $user->phone ? 'phone_field_required' : 'phone_verification_required')));
+            }
+        });
     }
 
     /**
