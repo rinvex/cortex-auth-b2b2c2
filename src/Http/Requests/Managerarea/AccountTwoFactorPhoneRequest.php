@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Cortex\Auth\B2B2C2\Http\Requests\Managerarea;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Cortex\Foundation\Exceptions\GenericException;
 
 class AccountTwoFactorPhoneRequest extends FormRequest
 {
