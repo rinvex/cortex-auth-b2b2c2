@@ -52,8 +52,8 @@ Route::domain('{subdomain}.'.domain())->group(function () {
                 });
             });
 
-            // Account Settings Route Placeholder
-            Route::redirect('account', '/account/settings')->name('account')->uses('AccountSettingsController@index');
+            // Account Settings Route Alias
+            Route::get('account')->name('account')->uses('AccountSettingsController@index');
 
             // User Account Routes
             Route::name('account.')->prefix('account')->group(function () {
