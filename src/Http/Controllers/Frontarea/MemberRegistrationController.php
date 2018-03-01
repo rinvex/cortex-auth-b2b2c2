@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\B2B2C2\Http\Controllers\Frontarea;
 
-use Cortex\Auth\Models\Manager;
+use Cortex\Auth\Models\Member;
 use Illuminate\Auth\Events\Registered;
 use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Auth\B2B2C2\Http\Requests\Frontarea\MemberRegistrationRequest;
@@ -38,23 +38,23 @@ class MemberRegistrationController extends AbstractController
      * Process the registration form.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Frontarea\MemberRegistrationProcessRequest $request
-     * @param \Cortex\Auth\Models\Manager                                                  $manager
+     * @param \Cortex\Auth\Models\Member                                                  $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function register(MemberRegistrationProcessRequest $request, Manager $manager)
+    public function register(MemberRegistrationProcessRequest $request, Member $member)
     {
         // Prepare registration data
         $data = $request->validated();
 
-        $manager->fill($data)->save();
+        $member->fill($data)->save();
 
         // Fire the register success event
-        event(new Registered($manager));
+        event(new Registered($member));
 
         // Send verification if required
         ! config('cortex.auth.emails.verification')
-        || app('rinvex.auth.emailverification')->broker($this->getBroker())->sendVerificationLink(['email' => $manager->email]);
+        || app('rinvex.auth.emailverification')->broker($this->getEmailVerificationBroker())->sendVerificationLink(['email' => $member->email]);
 
         // Registration completed successfully
         return intend([
