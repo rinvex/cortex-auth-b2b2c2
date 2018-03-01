@@ -70,6 +70,7 @@ class SocialAuthenticationController extends AbstractController
             $localUser = $this->createLocalUser($provider, $attributes);
         }
 
+        // Auto-login registered member
         auth()->guard($this->getGuard())->login($localUser, true);
 
         return intend([
