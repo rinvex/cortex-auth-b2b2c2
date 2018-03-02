@@ -7,22 +7,11 @@ namespace Cortex\Auth\B2B2C2\Http\Controllers\Frontarea;
 use Cortex\Auth\Models\Manager;
 use Cortex\Tenants\Models\Tenant;
 use Illuminate\Auth\Events\Registered;
-use Cortex\Foundation\Http\Controllers\AbstractController;
 use Cortex\Auth\B2B2C2\Http\Requests\Frontarea\TenantRegistrationRequest;
 use Cortex\Auth\B2B2C2\Http\Requests\Frontarea\TenantRegistrationProcessRequest;
 
-class TenantRegistrationController extends AbstractController
+class TenantRegistrationController extends RegistrationController
 {
-    /**
-     * Create a new registration controller instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-
-        $this->middleware($this->getGuestMiddleware())->except($this->middlewareWhitelist);
-    }
-
     /**
      * Show the registration form.
      *

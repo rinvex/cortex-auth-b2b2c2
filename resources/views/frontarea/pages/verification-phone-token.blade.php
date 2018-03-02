@@ -48,7 +48,7 @@
                         <div>
                             {{ Html::link(route('frontarea.login'), trans('cortex/auth::common.account_login')) }}
                             {{ trans('cortex/foundation::common.or') }}
-                            {{ Html::link(route('frontarea.register'), trans('cortex/auth::common.account_register')) }}
+                            {{ Html::link(route('frontarea.register.member'), trans('cortex/auth::common.account_register')) }}
                         </div>
 
                     {{ Form::close() }}

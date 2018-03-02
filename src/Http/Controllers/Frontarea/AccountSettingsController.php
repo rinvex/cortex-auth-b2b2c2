@@ -11,7 +11,7 @@ use Cortex\Auth\B2B2C2\Http\Requests\Frontarea\AccountSettingsRequest;
 class AccountSettingsController extends AuthenticatedController
 {
     /**
-     * Show account settings.
+     * Redirect to account settings..
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

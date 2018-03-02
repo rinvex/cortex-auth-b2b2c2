@@ -24,7 +24,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('frontarea.register.process'), 'id' => 'frontarea-member-registration-form', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('frontarea.register.member.process'), 'id' => 'frontarea-member-registration-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/auth::common.account_register') }}</strong></div>
 
