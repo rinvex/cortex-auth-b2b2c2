@@ -43,6 +43,14 @@
                                 <div id="collapseOne" class="collapse in">
                                     <div class="wizard-step-body">
 
+                                        <div class="form-group has-feedback{{ $errors->has('owner.full_name') ? ' has-error' : '' }}">
+                                            {{ Form::text('owner[full_name]', old('owner.full_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.full_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+
+                                            @if ($errors->has('owner.full_name'))
+                                                <span class="help-block">{{ $errors->first('owner.full_name') }}</span>
+                                            @endif
+                                        </div>
+
                                         <div class="form-group has-feedback{{ $errors->has('owner.username') ? ' has-error' : '' }}">
                                             {{ Form::text('owner[username]', old('owner.username'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.username'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 

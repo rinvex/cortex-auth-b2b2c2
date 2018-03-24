@@ -28,6 +28,14 @@
 
                         <div class="centered"><strong>{{ trans('cortex/auth::common.account_register') }}</strong></div>
 
+                        <div class="form-group has-feedback{{ $errors->has('full_name') ? ' has-error' : '' }}">
+                            {{ Form::text('full_name', old('full_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.full_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+
+                            @if ($errors->has('full_name'))
+                                <span class="help-block">{{ $errors->first('full_name') }}</span>
+                            @endif
+                        </div>
+
                         <div class="form-group has-feedback{{ $errors->has('username') ? ' has-error' : '' }}">
                             {{ Form::text('username', old('username'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.username'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
