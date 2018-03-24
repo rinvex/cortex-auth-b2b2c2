@@ -45,6 +45,7 @@
                         @endif
 
                             <div class="row">
+
                                 <div class="col-md-4">
 
                                     {{-- Full Name --}}
@@ -58,9 +59,7 @@
                                     </div>
 
                                 </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="col-md-4">
 
                                     {{-- Username --}}
@@ -74,23 +73,6 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-4">
-
-                                    {{-- Title --}}
-                                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                                        {{ Form::label('title', trans('cortex/auth::common.title'), ['class' => 'control-label']) }}
-                                        {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.title')]) }}
-
-                                        @if ($errors->has('title'))
-                                            <span class="help-block">{{ $errors->first('title') }}</span>
-                                        @endif
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <div class="row">
 
                                 <div class="col-md-4">
 
@@ -108,6 +90,24 @@
 
                                         @if ($errors->has('email'))
                                             <span class="help-block">{{ $errors->first('email') }}</span>
+                                        @endif
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+
+                                    {{-- Title --}}
+                                    <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
+                                        {{ Form::label('title', trans('cortex/auth::common.title'), ['class' => 'control-label']) }}
+                                        {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.title')]) }}
+
+                                        @if ($errors->has('title'))
+                                            <span class="help-block">{{ $errors->first('title') }}</span>
                                         @endif
                                     </div>
 
