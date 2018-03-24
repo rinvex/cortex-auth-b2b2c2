@@ -16,7 +16,7 @@ Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Member $membe
 });
 
 Menu::register('adminarea.members.tabs', function (MenuGenerator $menu, Member $member) {
-    $menu->route(['adminarea.members.create'], trans('cortex/auth::common.details'))->ifCan('create', $member)->if(! $member->exists);
+    $menu->route(['adminarea.members.create'], trans('cortex/auth::common.details'))->ifCan('create', $member)->if(Route::is('adminarea.members.create'));
     $menu->route(['adminarea.members.edit', ['member' => $member]], trans('cortex/auth::common.details'))->ifCan('update', $member)->if($member->exists);
     $menu->route(['adminarea.members.attributes', ['member' => $member]], trans('cortex/auth::common.attributes'))->ifCan('update', $member)->if($member->exists);
     $menu->route(['adminarea.members.logs', ['member' => $member]], trans('cortex/auth::common.logs'))->ifCan('audit', $member)->if($member->exists);
@@ -24,7 +24,7 @@ Menu::register('adminarea.members.tabs', function (MenuGenerator $menu, Member $
 });
 
 Menu::register('adminarea.managers.tabs', function (MenuGenerator $menu, Manager $manager) {
-    $menu->route(['adminarea.managers.create'], trans('cortex/auth::common.details'))->ifCan('create', $manager)->if(! $manager->exists);
+    $menu->route(['adminarea.managers.create'], trans('cortex/auth::common.details'))->ifCan('create', $manager)->if(Route::is('adminarea.managers.create'));
     $menu->route(['adminarea.managers.edit', ['manager' => $manager]], trans('cortex/auth::common.details'))->ifCan('update', $manager)->if($manager->exists);
     $menu->route(['adminarea.managers.attributes', ['manager' => $manager]], trans('cortex/auth::common.attributes'))->ifCan('update', $manager)->if($manager->exists);
     $menu->route(['adminarea.managers.logs', ['manager' => $manager]], trans('cortex/auth::common.logs'))->ifCan('audit', $manager)->if($manager->exists);
@@ -43,13 +43,13 @@ Menu::register('managerarea.sidebar', function (MenuGenerator $menu, Role $role,
 });
 
 Menu::register('managerarea.roles.tabs', function (MenuGenerator $menu, Role $role) {
-    $menu->route(['managerarea.roles.create'], trans('cortex/auth::common.details'))->ifCan('create', $role)->if(! $role->exists);
+    $menu->route(['managerarea.roles.create'], trans('cortex/auth::common.details'))->ifCan('create', $role)->if(Route::is('managerarea.roles.create'));
     $menu->route(['managerarea.roles.edit', ['role' => $role]], trans('cortex/auth::common.details'))->ifCan('update', $role)->if($role->exists);
     $menu->route(['managerarea.roles.logs', ['role' => $role]], trans('cortex/auth::common.logs'))->ifCan('audit', $role)->if($role->exists);
 });
 
 Menu::register('managerarea.members.tabs', function (MenuGenerator $menu, Member $member) {
-    $menu->route(['managerarea.members.create'], trans('cortex/auth::common.details'))->ifCan('create', $member)->if(! $member->exists);
+    $menu->route(['managerarea.members.create'], trans('cortex/auth::common.details'))->ifCan('create', $member)->if(Route::is('managerarea.members.create'));
     $menu->route(['managerarea.members.edit', ['member' => $member]], trans('cortex/auth::common.details'))->ifCan('update', $member)->if($member->exists);
     $menu->route(['managerarea.members.attributes', ['member' => $member]], trans('cortex/auth::common.attributes'))->ifCan('update', $member)->if($member->exists);
     $menu->route(['managerarea.members.logs', ['member' => $member]], trans('cortex/auth::common.logs'))->ifCan('audit', $member)->if($member->exists);
@@ -57,7 +57,7 @@ Menu::register('managerarea.members.tabs', function (MenuGenerator $menu, Member
 });
 
 Menu::register('managerarea.managers.tabs', function (MenuGenerator $menu, Manager $manager) {
-    $menu->route(['managerarea.managers.create'], trans('cortex/auth::common.details'))->ifCan('create', $manager)->if(! $manager->exists);
+    $menu->route(['managerarea.managers.create'], trans('cortex/auth::common.details'))->ifCan('create', $manager)->if(Route::is('managerarea.managers.create'));
     $menu->route(['managerarea.managers.edit', ['manager' => $manager]], trans('cortex/auth::common.details'))->ifCan('update', $manager)->if($manager->exists);
     $menu->route(['managerarea.managers.attributes', ['manager' => $manager]], trans('cortex/auth::common.attributes'))->ifCan('update', $manager)->if($manager->exists);
     $menu->route(['managerarea.managers.logs', ['manager' => $manager]], trans('cortex/auth::common.logs'))->ifCan('audit', $manager)->if($manager->exists);
