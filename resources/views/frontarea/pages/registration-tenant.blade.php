@@ -12,7 +12,7 @@
 
     <script>
         window.countries = {!! $countries !!};
-        window.selectedCountry = '{{ old('country_code') }}';
+        window.selectedCountry = '{{ old('tenant.country_code') }}';
     </script>
 @endpush
 
