@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\B2B2C2\Http\Controllers\Adminarea;
 
+use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Foundation\Http\Requests\ImportFormRequest;
+use Cortex\Foundation\Importers\DefaultImporter;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Member;
 use Illuminate\Foundation\Http\FormRequest;
@@ -104,6 +107,54 @@ class MembersController extends AuthorizedController
             'back' => true,
             'with' => ['success' => trans('cortex/auth::messages.account.updated_attributes')],
         ]);
+    }
+
+    /**
+     * Import members.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function import()
+    {
+        return view('cortex/foundation::adminarea.pages.import', [
+            'id' => 'adminarea-members-import',
+            'tabs' => 'adminarea.members.tabs',
+            'url' => route('adminarea.members.hoard'),
+            'phrase' => trans('cortex/auth::common.members'),
+        ]);
+    }
+
+    /**
+     * Hoard members.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     *
+     * @return void
+     */
+    public function hoard(ImportFormRequest $request, DefaultImporter $importer)
+    {
+        // Handle the import
+        $importer->config['resource'] = $this->resource;
+        $importer->config['name'] = 'username';
+        $importer->handleImport();
+    }
+
+    /**
+     * List member import logs.
+     *
+     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function importLogs(ImportLogsDataTable $importLogsDatatable)
+    {
+        return $importLogsDatatable->with([
+            'resource' => 'member',
+            'tabs' => 'adminarea.members.tabs',
+            'id' => 'adminarea-members-import-logs-table',
+            'phrase' => trans('cortex/members::common.members'),
+        ])->render('cortex/foundation::adminarea.pages.datatable-import-logs');
     }
 
     /**

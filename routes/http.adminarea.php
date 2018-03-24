@@ -12,6 +12,9 @@ Route::domain(domain())->group(function () {
                  // Members Routes
                  Route::name('members.')->prefix('members')->group(function () {
                      Route::get('/')->name('index')->uses('MembersController@index');
+                     Route::get('import')->name('import')->uses('MembersController@import');
+                     Route::post('import')->name('hoard')->uses('MembersController@hoard');
+                     Route::get('import/logs')->name('import.logs')->uses('MembersController@importLogs');
                      Route::get('create')->name('create')->uses('MembersController@create');
                      Route::post('create')->name('store')->uses('MembersController@store');
                      Route::get('{member}')->name('edit')->uses('MembersController@edit');
@@ -27,6 +30,9 @@ Route::domain(domain())->group(function () {
                  // Managers Routes
                  Route::name('managers.')->prefix('managers')->group(function () {
                      Route::get('/')->name('index')->uses('ManagersController@index');
+                     Route::get('import')->name('import')->uses('ManagersController@import');
+                     Route::post('import')->name('hoard')->uses('ManagersController@hoard');
+                     Route::get('import/logs')->name('import.logs')->uses('ManagersController@importLogs');
                      Route::get('create')->name('create')->uses('ManagersController@create');
                      Route::post('create')->name('store')->uses('ManagersController@store');
                      Route::get('{manager}')->name('edit')->uses('ManagersController@edit');

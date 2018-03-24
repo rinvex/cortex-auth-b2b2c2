@@ -13,6 +13,17 @@ Breadcrumbs::register('adminarea.managers.index', function (BreadcrumbsGenerator
     $breadcrumbs->push(trans('cortex/auth::common.managers'), route('adminarea.managers.index'));
 });
 
+Breadcrumbs::register('adminarea.managers.import', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->parent('adminarea.managers.index');
+    $breadcrumbs->push(trans('cortex/auth::common.import'), route('adminarea.managers.import'));
+});
+
+Breadcrumbs::register('adminarea.managers.import.logs', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->parent('adminarea.managers.index');
+    $breadcrumbs->push(trans('cortex/auth::common.import'), route('adminarea.managers.import'));
+    $breadcrumbs->push(trans('cortex/auth::common.logs'), route('adminarea.managers.import.logs'));
+});
+
 Breadcrumbs::register('adminarea.managers.create', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->parent('adminarea.managers.index');
     $breadcrumbs->push(trans('cortex/auth::common.create_manager'), route('adminarea.managers.create'));
@@ -44,6 +55,17 @@ Breadcrumbs::register('adminarea.managers.attributes', function (BreadcrumbsGene
 Breadcrumbs::register('adminarea.members.index', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.adminarea'), route('adminarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.members'), route('adminarea.members.index'));
+});
+
+Breadcrumbs::register('adminarea.members.import', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->parent('adminarea.members.index');
+    $breadcrumbs->push(trans('cortex/auth::common.import'), route('adminarea.members.import'));
+});
+
+Breadcrumbs::register('adminarea.members.import.logs', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->parent('adminarea.members.index');
+    $breadcrumbs->push(trans('cortex/auth::common.import'), route('adminarea.members.import'));
+    $breadcrumbs->push(trans('cortex/auth::common.logs'), route('adminarea.members.import.logs'));
 });
 
 Breadcrumbs::register('adminarea.members.create', function (BreadcrumbsGenerator $breadcrumbs) {
@@ -80,6 +102,17 @@ Breadcrumbs::register('managerarea.roles.index', function (BreadcrumbsGenerator 
     $breadcrumbs->push(trans('cortex/auth::common.roles'), route('managerarea.roles.index'));
 });
 
+Breadcrumbs::register('managerarea.roles.import', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->parent('managerarea.roles.index');
+    $breadcrumbs->push(trans('cortex/auth::common.import'), route('managerarea.roles.import'));
+});
+
+Breadcrumbs::register('managerarea.roles.import.logs', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->parent('managerarea.roles.index');
+    $breadcrumbs->push(trans('cortex/auth::common.import'), route('managerarea.roles.import'));
+    $breadcrumbs->push(trans('cortex/auth::common.logs'), route('managerarea.roles.import.logs'));
+});
+
 Breadcrumbs::register('managerarea.roles.create', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->parent('managerarea.roles.index');
     $breadcrumbs->push(trans('cortex/auth::common.create_role'), route('managerarea.roles.create'));
@@ -99,6 +132,17 @@ Breadcrumbs::register('managerarea.roles.logs', function (BreadcrumbsGenerator $
 Breadcrumbs::register('managerarea.members.index', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.managerarea'), route('managerarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.members'), route('managerarea.members.index'));
+});
+
+Breadcrumbs::register('managerarea.members.import', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->parent('managerarea.members.index');
+    $breadcrumbs->push(trans('cortex/auth::common.import'), route('managerarea.members.import'));
+});
+
+Breadcrumbs::register('managerarea.members.import.logs', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->parent('managerarea.members.index');
+    $breadcrumbs->push(trans('cortex/auth::common.import'), route('managerarea.members.import'));
+    $breadcrumbs->push(trans('cortex/auth::common.logs'), route('managerarea.members.import.logs'));
 });
 
 Breadcrumbs::register('managerarea.members.create', function (BreadcrumbsGenerator $breadcrumbs) {
@@ -132,6 +176,17 @@ Breadcrumbs::register('managerarea.members.attributes', function (BreadcrumbsGen
 Breadcrumbs::register('managerarea.managers.index', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.managerarea'), route('managerarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.managers'), route('managerarea.managers.index'));
+});
+
+Breadcrumbs::register('managerarea.managers.import', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->parent('managerarea.managers.index');
+    $breadcrumbs->push(trans('cortex/auth::common.import'), route('managerarea.managers.import'));
+});
+
+Breadcrumbs::register('managerarea.managers.import.logs', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->parent('managerarea.managers.index');
+    $breadcrumbs->push(trans('cortex/auth::common.import'), route('managerarea.managers.import'));
+    $breadcrumbs->push(trans('cortex/auth::common.logs'), route('managerarea.managers.import.logs'));
 });
 
 Breadcrumbs::register('managerarea.managers.create', function (BreadcrumbsGenerator $breadcrumbs) {

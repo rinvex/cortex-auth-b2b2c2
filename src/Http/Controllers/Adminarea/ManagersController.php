@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\B2B2C2\Http\Controllers\Adminarea;
 
+use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Foundation\Http\Requests\ImportFormRequest;
+use Cortex\Foundation\Importers\DefaultImporter;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Manager;
 use Illuminate\Foundation\Http\FormRequest;
@@ -104,6 +107,54 @@ class ManagersController extends AuthorizedController
             'back' => true,
             'with' => ['success' => trans('cortex/auth::messages.account.updated_attributes')],
         ]);
+    }
+
+    /**
+     * Import managers.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function import()
+    {
+        return view('cortex/foundation::adminarea.pages.import', [
+            'id' => 'adminarea-managers-import',
+            'tabs' => 'adminarea.managers.tabs',
+            'url' => route('adminarea.managers.hoard'),
+            'phrase' => trans('cortex/auth::common.managers'),
+        ]);
+    }
+
+    /**
+     * Hoard managers.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     *
+     * @return void
+     */
+    public function hoard(ImportFormRequest $request, DefaultImporter $importer)
+    {
+        // Handle the import
+        $importer->config['resource'] = $this->resource;
+        $importer->config['name'] = 'username';
+        $importer->handleImport();
+    }
+
+    /**
+     * List manager import logs.
+     *
+     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function importLogs(ImportLogsDataTable $importLogsDatatable)
+    {
+        return $importLogsDatatable->with([
+            'resource' => 'manager',
+            'tabs' => 'adminarea.managers.tabs',
+            'id' => 'adminarea-managers-import-logs-table',
+            'phrase' => trans('cortex/managers::common.managers'),
+        ])->render('cortex/foundation::adminarea.pages.datatable-import-logs');
     }
 
     /**
