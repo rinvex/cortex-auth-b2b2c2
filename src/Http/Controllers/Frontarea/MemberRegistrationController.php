@@ -20,7 +20,7 @@ class MemberRegistrationController extends RegistrationController
      */
     public function form(MemberRegistrationRequest $request)
     {
-        return view('cortex/auth::frontarea.pages.registration');
+        return view('cortex/auth::frontarea.pages.member-registration');
     }
 
     /**

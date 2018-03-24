@@ -31,7 +31,7 @@ class RegistrationController extends AbstractController
      */
     public function form(RegistrationRequest $request)
     {
-        return view('cortex/auth::tenantarea.pages.registration');
+        return view('cortex/auth::tenantarea.pages.member-registration');
     }
 
     /**

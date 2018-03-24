@@ -30,7 +30,7 @@ class TenantRegistrationController extends RegistrationController
         })->values();
         $languages = collect(languages())->pluck('name', 'iso_639_1');
 
-        return view('cortex/auth::frontarea.pages.registration-tenant', compact('countries', 'languages'));
+        return view('cortex/auth::frontarea.pages.tenant-registration', compact('countries', 'languages'));
     }
 
     /**
