@@ -26,7 +26,7 @@ class RegistrationController extends AbstractController
     public function index()
     {
         return intend([
-            'url' => route('frontarea.register.member'),
+            'url' => route('frontarea.register.tenant'),
         ]);
     }
 }
