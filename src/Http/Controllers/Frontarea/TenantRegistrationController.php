@@ -65,7 +65,7 @@ class TenantRegistrationController extends RegistrationController
         || app('rinvex.auth.emailverification')->broker($this->getEmailVerificationBroker())->sendVerificationLink(['email' => $owner->email]);
 
         // Auto-login registered owner
-        auth()->guard($this->getGuard())->login($owner);
+        auth()->guard('managers')->login($owner);
 
         // Registration completed successfully
         return intend([
