@@ -15,9 +15,7 @@ class TenantRegistrationProcessRequest extends TenantRegistrationRequest
     {
         $data = $this->all();
 
-        $role = app('cortex.auth.role')->where('name', 'owner')->first();
         $data['owner']['is_active'] = ! config('cortex.auth.registration.moderated');
-        ! $role || $data['owner']['roles'] = [$role->getKey()];
 
         $this->replace($data);
     }
