@@ -46,7 +46,7 @@ class MemberRegistrationController extends RegistrationController
         || app('rinvex.auth.emailverification')->broker($this->getEmailVerificationBroker())->sendVerificationLink(['email' => $member->email]);
 
         // Auto-login registered member
-        auth()->guard($this->getGuard())->login($member);
+        auth()->guard('members')->login($member);
 
         // Registration completed successfully
         return intend([
