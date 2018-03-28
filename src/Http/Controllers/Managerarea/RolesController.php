@@ -120,7 +120,7 @@ class RolesController extends AuthorizedController
      * Edit given role.
      *
      * @param \Cortex\Auth\Http\Requests\Managerarea\RoleFormRequest $request
-     * @param \Cortex\Auth\Models\Role                             $role
+     * @param \Cortex\Auth\Models\Role                               $role
      *
      * @return \Illuminate\View\View
      */
