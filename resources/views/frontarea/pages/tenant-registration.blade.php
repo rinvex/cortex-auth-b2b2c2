@@ -52,7 +52,7 @@
                                         </div>
 
                                         <div class="form-group has-feedback{{ $errors->has('owner.username') ? ' has-error' : '' }}">
-                                            {{ Form::text('owner[username]', old('owner.username'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.username'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                                            {{ Form::text('owner[username]', old('owner.username'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.username'), 'required' => 'required']) }}
 
                                             @if ($errors->has('owner.username'))
                                                 <span class="help-block">{{ $errors->first('owner.username') }}</span>
