@@ -116,10 +116,10 @@ class MembersController extends AuthorizedController
      */
     public function import()
     {
-        return view('cortex/foundation::adminarea.pages.import', [
-            'id' => 'adminarea-members-import',
-            'tabs' => 'adminarea.members.tabs',
-            'url' => route('adminarea.members.hoard'),
+        return view('cortex/foundation::managerarea.pages.import', [
+            'id' => 'managerarea-members-import',
+            'tabs' => 'managerarea.members.tabs',
+            'url' => route('managerarea.members.hoard'),
             'phrase' => trans('cortex/auth::common.members'),
         ]);
     }
@@ -151,10 +151,10 @@ class MembersController extends AuthorizedController
     {
         return $importLogsDatatable->with([
             'resource' => 'member',
-            'tabs' => 'adminarea.members.tabs',
-            'id' => 'adminarea-members-import-logs-table',
+            'tabs' => 'managerarea.members.tabs',
+            'id' => 'managerarea-members-import-logs-table',
             'phrase' => trans('cortex/members::common.members'),
-        ])->render('cortex/foundation::adminarea.pages.datatable-import-logs');
+        ])->render('cortex/foundation::managerarea.pages.datatable-import-logs');
     }
 
     /**

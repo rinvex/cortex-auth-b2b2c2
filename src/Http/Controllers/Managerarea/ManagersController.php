@@ -116,10 +116,10 @@ class ManagersController extends AuthorizedController
      */
     public function import()
     {
-        return view('cortex/foundation::adminarea.pages.import', [
-            'id' => 'adminarea-managers-import',
-            'tabs' => 'adminarea.managers.tabs',
-            'url' => route('adminarea.managers.hoard'),
+        return view('cortex/foundation::managerarea.pages.import', [
+            'id' => 'managerarea-managers-import',
+            'tabs' => 'managerarea.managers.tabs',
+            'url' => route('managerarea.managers.hoard'),
             'phrase' => trans('cortex/auth::common.managers'),
         ]);
     }
@@ -151,10 +151,10 @@ class ManagersController extends AuthorizedController
     {
         return $importLogsDatatable->with([
             'resource' => 'manager',
-            'tabs' => 'adminarea.managers.tabs',
-            'id' => 'adminarea-managers-import-logs-table',
+            'tabs' => 'managerarea.managers.tabs',
+            'id' => 'managerarea-managers-import-logs-table',
             'phrase' => trans('cortex/managers::common.managers'),
-        ])->render('cortex/foundation::adminarea.pages.datatable-import-logs');
+        ])->render('cortex/foundation::managerarea.pages.datatable-import-logs');
     }
 
     /**

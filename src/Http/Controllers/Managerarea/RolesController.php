@@ -63,10 +63,10 @@ class RolesController extends AuthorizedController
      */
     public function import()
     {
-        return view('cortex/foundation::adminarea.pages.import', [
-            'id' => 'adminarea-roles-import',
-            'tabs' => 'adminarea.roles.tabs',
-            'url' => route('adminarea.roles.hoard'),
+        return view('cortex/foundation::managerarea.pages.import', [
+            'id' => 'managerarea-roles-import',
+            'tabs' => 'managerarea.roles.tabs',
+            'url' => route('managerarea.roles.hoard'),
             'phrase' => trans('cortex/auth::common.roles'),
         ]);
     }
@@ -97,10 +97,10 @@ class RolesController extends AuthorizedController
     {
         return $importLogsDatatable->with([
             'resource' => 'role',
-            'tabs' => 'adminarea.roles.tabs',
-            'id' => 'adminarea-roles-import-logs-table',
+            'tabs' => 'managerarea.roles.tabs',
+            'id' => 'managerarea-roles-import-logs-table',
             'phrase' => trans('cortex/roles::common.roles'),
-        ])->render('cortex/foundation::adminarea.pages.datatable-import-logs');
+        ])->render('cortex/foundation::managerarea.pages.datatable-import-logs');
     }
 
     /**
@@ -119,7 +119,7 @@ class RolesController extends AuthorizedController
     /**
      * Edit given role.
      *
-     * @param \Cortex\Auth\Http\Requests\Adminarea\RoleFormRequest $request
+     * @param \Cortex\Auth\Http\Requests\Managerarea\RoleFormRequest $request
      * @param \Cortex\Auth\Models\Role                             $role
      *
      * @return \Illuminate\View\View
