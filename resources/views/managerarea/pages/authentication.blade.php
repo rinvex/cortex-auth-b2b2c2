@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ $currentTenant->name }} » {{ trans('cortex/auth::common.login') }}
+    {{ $currentTenant->title }} » {{ trans('cortex/auth::common.login') }}
 @endsection
 
 {{-- Scripts --}}
@@ -16,7 +16,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ route('frontarea.home') }}"><b>{{ $currentTenant->name }}</b></a>
+            <a href="{{ route('frontarea.home') }}"><b>{{ $currentTenant->title }}</b></a>
         </div>
 
         <div class="login-box-body">

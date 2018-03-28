@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ $currentTenant->name }} » {{ trans('cortex/foundation::common.managerarea') }} » {{ trans('cortex/auth::common.roles') }} » {{ $role->exists ? $role->name : trans('cortex/auth::common.create_role') }}
+    {{ $currentTenant->title }} » {{ trans('cortex/foundation::common.managerarea') }} » {{ trans('cortex/auth::common.roles') }} » {{ $role->exists ? $role->name : trans('cortex/auth::common.create_role') }}
 @endsection
 
 @push('inline-scripts')

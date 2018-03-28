@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ $currentTenant->name }} » {{ trans('cortex/auth::common.verification_phone_request') }}
+    {{ $currentTenant->title }} » {{ trans('cortex/auth::common.verification_phone_request') }}
 @endsection
 
 {{-- Scripts --}}

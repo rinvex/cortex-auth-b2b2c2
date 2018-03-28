@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ $currentTenant->name }} » {{ trans('cortex/auth::common.password_reset') }}
+    {{ $currentTenant->title }} » {{ trans('cortex/auth::common.password_reset') }}
 @endsection
 
 {{-- Scripts --}}

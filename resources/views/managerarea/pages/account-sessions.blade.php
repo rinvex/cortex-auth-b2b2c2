@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ $currentTenant->name }} » {{ trans('cortex/auth::common.active_sessions') }}
+    {{ $currentTenant->title }} » {{ trans('cortex/auth::common.active_sessions') }}
 @endsection
 
 {{-- Main Content --}}
