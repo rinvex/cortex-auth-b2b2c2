@@ -284,6 +284,7 @@ class MembersController extends AuthorizedController
 
     /**
      * List the members.
+     *
      * @TODO: to be refactored!
      *
      * @return array
