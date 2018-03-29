@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ $currentTenant->title }} » {{ trans('cortex/auth::common.twofactor_authentication') }}
+    {{ $currentTenant->name }} » {{ trans('cortex/auth::common.twofactor_authentication') }}
 @endsection
 
 {{-- Main Content --}}
