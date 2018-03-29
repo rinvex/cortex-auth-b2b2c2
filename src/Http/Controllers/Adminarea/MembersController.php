@@ -283,6 +283,17 @@ class MembersController extends AuthorizedController
     }
 
     /**
+     * List the members.
+     * @TODO: to be refactored!
+     *
+     * @return array
+     */
+    public function ajax(): array
+    {
+        return app('cortex.auth.member')->all()->pluck('full_name', 'id')->toArray();
+    }
+
+    /**
      * Destroy given member.
      *
      * @param \Cortex\Auth\Models\Member $member

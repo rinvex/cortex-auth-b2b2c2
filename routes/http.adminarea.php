@@ -12,6 +12,7 @@ Route::domain(domain())->group(function () {
                  // Members Routes
                  Route::name('members.')->prefix('members')->group(function () {
                      Route::get('/')->name('index')->uses('MembersController@index');
+                     Route::post('ajax')->name('ajax')->uses('MembersController@ajax'); // @TODO: to be refactored!
                      Route::get('import')->name('import')->uses('MembersController@import');
                      Route::post('import')->name('hoard')->uses('MembersController@hoard');
                      Route::get('import/logs')->name('import.logs')->uses('MembersController@importLogs');
