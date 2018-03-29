@@ -104,11 +104,11 @@
                                             @endif
                                         </div>
 
-                                        <div class="form-group has-feedback{{ $errors->has('tenant.name') ? ' has-error' : '' }}">
-                                            {{ Form::text('tenant[name]', old('tenant.name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.name'), 'required' => 'required']) }}
+                                        <div class="form-group has-feedback{{ $errors->has('tenant.slug') ? ' has-error' : '' }}">
+                                            {{ Form::text('tenant[slug]', old('tenant.slug'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.slug'), 'required' => 'required']) }}
 
-                                            @if ($errors->has('tenant.name'))
-                                                <span class="help-block">{{ $errors->first('tenant.name') }}</span>
+                                            @if ($errors->has('tenant.slug'))
+                                                <span class="help-block">{{ $errors->first('tenant.slug') }}</span>
                                             @endif
                                         </div>
 
