@@ -53,7 +53,7 @@ class ManagersController extends AuthorizedController
             'resource' => $manager,
             'tabs' => 'managerarea.managers.tabs',
             'phrase' => trans('cortex/auth::common.managers'),
-            'id' => "managerarea-managers-{$manager->getKey()}-logs-table",
+            'id' => "managerarea-managers-{$manager->getRouteKey()}-logs-table",
         ])->render('cortex/foundation::managerarea.pages.datatable-logs');
     }
 
@@ -71,7 +71,7 @@ class ManagersController extends AuthorizedController
             'resource' => $manager,
             'tabs' => 'managerarea.managers.tabs',
             'phrase' => trans('cortex/auth::common.managers'),
-            'id' => "managerarea-managers-{$manager->getKey()}-activities-table",
+            'id' => "managerarea-managers-{$manager->getRouteKey()}-activities-table",
         ])->render('cortex/foundation::managerarea.pages.datatable-logs');
     }
 

@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\RoleFormProcessRequest::class)->selector("#managerarea-roles-create-form, #managerarea-roles-{$role->getKey()}-update-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\RoleFormProcessRequest::class)->selector("#managerarea-roles-create-form, #managerarea-roles-{$role->getRouteKey()}-update-form") !!}
 @endpush
 
 {{-- Main Content --}}
@@ -33,7 +33,7 @@
                     <div class="tab-pane active" id="details-tab">
 
                         @if ($role->exists)
-                            {{ Form::model($role, ['url' => route('managerarea.roles.update', ['role' => $role]), 'method' => 'put', 'id' => "managerarea-roles-{$role->getKey()}-update-form"]) }}
+                            {{ Form::model($role, ['url' => route('managerarea.roles.update', ['role' => $role]), 'method' => 'put', 'id' => "managerarea-roles-{$role->getRouteKey()}-update-form"]) }}
                         @else
                             {{ Form::model($role, ['url' => route('managerarea.roles.store'), 'id' => 'managerarea-roles-create-form']) }}
                         @endif

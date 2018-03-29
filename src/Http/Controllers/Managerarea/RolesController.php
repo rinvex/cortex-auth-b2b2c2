@@ -52,7 +52,7 @@ class RolesController extends AuthorizedController
             'resource' => $role,
             'tabs' => 'managerarea.roles.tabs',
             'phrase' => trans('cortex/auth::common.roles'),
-            'id' => "managerarea-roles-{$role->getKey()}-logs-table",
+            'id' => "managerarea-roles-{$role->getRouteKey()}-logs-table",
         ])->render('cortex/foundation::managerarea.pages.datatable-logs');
     }
 

@@ -53,7 +53,7 @@ class MembersController extends AuthorizedController
             'resource' => $member,
             'tabs' => 'adminarea.members.tabs',
             'phrase' => trans('cortex/auth::common.members'),
-            'id' => "adminarea-members-{$member->getKey()}-logs-table",
+            'id' => "adminarea-members-{$member->getRouteKey()}-logs-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
 
@@ -71,7 +71,7 @@ class MembersController extends AuthorizedController
             'resource' => $member,
             'tabs' => 'adminarea.members.tabs',
             'phrase' => trans('cortex/auth::common.members'),
-            'id' => "adminarea-members-{$member->getKey()}-activities-table",
+            'id' => "adminarea-members-{$member->getRouteKey()}-activities-table",
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
     }
 

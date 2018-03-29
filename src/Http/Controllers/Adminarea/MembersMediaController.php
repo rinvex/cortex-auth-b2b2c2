@@ -49,7 +49,7 @@ class MembersMediaController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.members.edit', ['member' => $member]),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'media', 'id' => $media->getKey()])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'media', 'id' => $media->getRouteKey()])],
         ]);
     }
 }

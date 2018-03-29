@@ -22,8 +22,8 @@ class MembersDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'adminarea.members.edit\', {member: full.username, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'adminarea.members.edit\', {member: full.username})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'adminarea.members.edit\', {member: hashids.encode(full.id), locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.members.edit\', {member: hashids.encode(full.id)})+"\">"+data+"</a>"';
 
         return [
             'full_name' => ['title' => trans('cortex/auth::common.full_name'), 'render' => $link.'+(full.is_active ? " <i class=\"text-success fa fa-check\"></i>" : " <i class=\"text-danger fa fa-close\"></i>")', 'responsivePriority' => 0],
