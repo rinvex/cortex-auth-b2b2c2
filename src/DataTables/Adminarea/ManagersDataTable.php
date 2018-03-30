@@ -6,6 +6,7 @@ namespace Cortex\Auth\B2B2C2\DataTables\Adminarea;
 
 use Cortex\Auth\Models\Manager;
 use Cortex\Foundation\DataTables\AbstractDataTable;
+use Cortex\Auth\B2B2C2\Transformers\Adminarea\ManagerTransformer;
 
 class ManagersDataTable extends AbstractDataTable
 {
@@ -15,6 +16,11 @@ class ManagersDataTable extends AbstractDataTable
     protected $model = Manager::class;
 
     /**
+     * {@inheritdoc}
+     */
+    protected $transformer = ManagerTransformer::class;
+
+    /**
      * Get columns.
      *
      * @return array
@@ -22,8 +28,8 @@ class ManagersDataTable extends AbstractDataTable
     protected function getColumns(): array
     {
         $link = config('cortex.foundation.route.locale_prefix')
-            ? '"<a href=\""+routes.route(\'adminarea.managers.edit\', {manager: hashids.encode(full.id), locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
-            : '"<a href=\""+routes.route(\'adminarea.managers.edit\', {manager: hashids.encode(full.id)})+"\">"+data+"</a>"';
+            ? '"<a href=\""+routes.route(\'adminarea.managers.edit\', {manager: full.id, locale: \''.$this->request->segment(1).'\'})+"\">"+data+"</a>"'
+            : '"<a href=\""+routes.route(\'adminarea.managers.edit\', {manager: full.id})+"\">"+data+"</a>"';
 
         return [
             'full_name' => ['title' => trans('cortex/auth::common.full_name'), 'render' => $link.'+(full.is_active ? " <i class=\"text-success fa fa-check\"></i>" : " <i class=\"text-danger fa fa-close\"></i>")', 'responsivePriority' => 0],
