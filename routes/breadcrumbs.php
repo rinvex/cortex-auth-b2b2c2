@@ -120,12 +120,12 @@ Breadcrumbs::register('managerarea.roles.create', function (BreadcrumbsGenerator
 
 Breadcrumbs::register('managerarea.roles.edit', function (BreadcrumbsGenerator $breadcrumbs, Role $role) {
     $breadcrumbs->parent('managerarea.roles.index');
-    $breadcrumbs->push($role->name, route('managerarea.roles.edit', ['role' => $role]));
+    $breadcrumbs->push($role->title, route('managerarea.roles.edit', ['role' => $role]));
 });
 
 Breadcrumbs::register('managerarea.roles.logs', function (BreadcrumbsGenerator $breadcrumbs, Role $role) {
     $breadcrumbs->parent('managerarea.roles.index');
-    $breadcrumbs->push($role->name, route('managerarea.roles.edit', ['role' => $role]));
+    $breadcrumbs->push($role->title, route('managerarea.roles.edit', ['role' => $role]));
     $breadcrumbs->push(trans('cortex/auth::common.logs'), route('managerarea.roles.logs', ['role' => $role]));
 });
 

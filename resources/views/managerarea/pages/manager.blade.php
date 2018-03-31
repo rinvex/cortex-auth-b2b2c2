@@ -31,7 +31,7 @@
         <section class="content">
 
             <div class="nav-tabs-custom">
-                @if($manager->exists && $currentUser->can('delete', $manager)) <div class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('managerarea.managers.destroy', ['manager' => $manager]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'manager', 'name' => $manager->username]) !!}" title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i></a></div> @endif
+                @if($manager->exists && $currentUser->can('delete', $manager)) <div class="pull-right"><a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('managerarea.managers.destroy', ['manager' => $manager]) }}" data-modal-title="{!! trans('cortex/foundation::messages.delete_confirmation_title') !!}" data-modal-body="{!! trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => 'manager', 'identifier' => $manager->username]) !!}" title="{{ trans('cortex/foundation::common.delete') }}" class="btn btn-default" style="margin: 4px"><i class="fa fa-trash text-danger"></i></a></div> @endif
                 {!! Menu::render('managerarea.managers.tabs', 'nav-tab') !!}
 
                 <div class="tab-content">
@@ -278,7 +278,7 @@
                                         @if ($manager->exists && $manager->getMedia('profile_picture')->count())
                                             <i class="fa fa-paperclip"></i>
                                             <a href="{{ $manager->getFirstMediaUrl('profile_picture') }}" target="_blank">{{ $manager->getFirstMedia('profile_picture')->file_name }}</a> ({{ $manager->getFirstMedia('profile_picture')->human_readable_size }})
-                                            <a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('managerarea.managers.media.destroy', ['manager' => $manager, 'media' => $manager->getFirstMedia('profile_picture')]) }}" data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}" data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'media', 'name' => $manager->getFirstMedia('profile_picture')->file_name]) }}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
+                                            <a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('managerarea.managers.media.destroy', ['manager' => $manager, 'media' => $manager->getFirstMedia('profile_picture')]) }}" data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}" data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => 'media', 'identifier' => $manager->getFirstMedia('profile_picture')->file_name]) }}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
                                         @endif
 
                                         @if ($errors->has('profile_picture'))
@@ -308,7 +308,7 @@
                                         @if ($manager->exists && $manager->getMedia('cover_photo')->count())
                                             <i class="fa fa-paperclip"></i>
                                             <a href="{{ $manager->getFirstMediaUrl('cover_photo') }}" target="_blank">{{ $manager->getFirstMedia('cover_photo')->file_name }}</a> ({{ $manager->getFirstMedia('cover_photo')->human_readable_size }})
-                                            <a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('managerarea.managers.media.destroy', ['manager' => $manager, 'media' => $manager->getFirstMedia('cover_photo')]) }}" data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}" data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['type' => 'media', 'name' => $manager->getFirstMedia('cover_photo')->file_name]) }}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
+                                            <a href="#" data-toggle="modal" data-target="#delete-confirmation" data-modal-action="{{ route('managerarea.managers.media.destroy', ['manager' => $manager, 'media' => $manager->getFirstMedia('cover_photo')]) }}" data-modal-title="{{ trans('cortex/foundation::messages.delete_confirmation_title') }}" data-modal-body="{{ trans('cortex/foundation::messages.delete_confirmation_body', ['resource' => 'media', 'identifier' => $manager->getFirstMedia('cover_photo')->file_name]) }}" title="{{ trans('cortex/foundation::common.delete') }}"><i class="fa fa-trash text-danger"></i></a>
                                         @endif
 
                                         @if ($errors->has('cover_photo'))
