@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace Cortex\Auth\B2B2C2\Transformers\Adminarea;
 
 use Cortex\Auth\Models\Manager;
+use Rinvex\Support\Traits\Escaper;
 use League\Fractal\TransformerAbstract;
 
 class ManagerTransformer extends TransformerAbstract
 {
+    use Escaper;
+
     /**
      * @return array
      */
     public function transform(Manager $manager): array
     {
-        return [
+        return $this->escapeRow([
             'id' => (string) $manager->getRouteKey(),
             'is_active' => (bool) $manager->is_active,
             'full_name' => (string) $manager->full_name,
@@ -29,6 +32,6 @@ class ManagerTransformer extends TransformerAbstract
             'last_activity' => (string) $manager->last_activity,
             'created_at' => (string) $manager->created_at,
             'updated_at' => (string) $manager->updated_at,
-        ];
+        ]);
     }
 }

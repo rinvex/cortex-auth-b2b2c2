@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Cortex\Auth\B2B2C2\Transformers\Adminarea;
 
 use Cortex\Auth\Models\Member;
+use Rinvex\Support\Traits\Escaper;
 use League\Fractal\TransformerAbstract;
 
 class MemberTransformer extends TransformerAbstract
 {
+    use Escaper;
+
     /**
      * @return array
      */
@@ -17,7 +20,7 @@ class MemberTransformer extends TransformerAbstract
         $country = $member->country_code ? country($member->country_code) : null;
         $language = $member->language_code ? language($member->language_code) : null;
 
-        return [
+        return $this->escapeRow([
             'id' => (string) $member->getRouteKey(),
             'is_active' => (bool) $member->is_active,
             'full_name' => (string) $member->full_name,
@@ -32,6 +35,6 @@ class MemberTransformer extends TransformerAbstract
             'last_activity' => (string) $member->last_activity,
             'created_at' => (string) $member->created_at,
             'updated_at' => (string) $member->updated_at,
-        ];
+        ]);
     }
 }
