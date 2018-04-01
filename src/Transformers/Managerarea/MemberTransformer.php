@@ -17,10 +17,10 @@ class MemberTransformer extends TransformerAbstract
      */
     public function transform(Member $member): array
     {
-        return $this->escapeRow([
+        return $this->escape([
             'id' => (string) $member->getRouteKey(),
             'is_active' => (bool) $member->is_active,
-            'full_name' => (string) $member->full_name,
+            'full_name' => (string) ($member->full_name ?? $member->username),
             'username' => (string) $member->username,
             'email' => (string) $member->email,
             'phone' => (string) $member->phone,

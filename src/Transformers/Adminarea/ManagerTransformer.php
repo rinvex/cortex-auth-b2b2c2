@@ -17,10 +17,10 @@ class ManagerTransformer extends TransformerAbstract
      */
     public function transform(Manager $manager): array
     {
-        return $this->escapeRow([
+        return $this->escape([
             'id' => (string) $manager->getRouteKey(),
             'is_active' => (bool) $manager->is_active,
-            'full_name' => (string) $manager->full_name,
+            'full_name' => (string) ($manager->full_name ?? $manager->username),
             'username' => (string) $manager->username,
             'email' => (string) $manager->email,
             'phone' => (string) $manager->phone,

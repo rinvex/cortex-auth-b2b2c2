@@ -20,10 +20,10 @@ class MemberTransformer extends TransformerAbstract
         $country = $member->country_code ? country($member->country_code) : null;
         $language = $member->language_code ? language($member->language_code) : null;
 
-        return $this->escapeRow([
+        return $this->escape([
             'id' => (string) $member->getRouteKey(),
             'is_active' => (bool) $member->is_active,
-            'full_name' => (string) $member->full_name,
+            'full_name' => (string) ($member->full_name ?? $member->username),
             'username' => (string) $member->username,
             'email' => (string) $member->email,
             'phone' => (string) $member->phone,
