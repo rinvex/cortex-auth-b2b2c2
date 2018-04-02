@@ -17,6 +17,9 @@ class MemberTransformer extends TransformerAbstract
      */
     public function transform(Member $member): array
     {
+        $country = $member->country_code ? country($member->country_code) : null;
+        $language = $member->language_code ? language($member->language_code) : null;
+
         return $this->escape([
             'id' => (string) $member->getRouteKey(),
             'is_active' => (bool) $member->is_active,
@@ -24,8 +27,9 @@ class MemberTransformer extends TransformerAbstract
             'username' => (string) $member->username,
             'email' => (string) $member->email,
             'phone' => (string) $member->phone,
-            'country_code' => (string) $member->country_code ? country($member->country_code)->getName() : null,
-            'language_code' => (string) $member->language_code ? language($member->language_code)->getName() : null,
+            'country_code' => (string) optional($country)->getName(),
+            'country_emoji' => (string) optional($country)->getEmoji(),
+            'language_code' => (string) optional($language)->getName(),
             'title' => (string) $member->title,
             'birthday' => (string) $member->birthday,
             'gender' => (string) $member->gender,

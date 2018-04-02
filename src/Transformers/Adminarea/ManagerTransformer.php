@@ -17,6 +17,9 @@ class ManagerTransformer extends TransformerAbstract
      */
     public function transform(Manager $manager): array
     {
+        $country = $manager->country_code ? country($manager->country_code) : null;
+        $language = $manager->language_code ? language($manager->language_code) : null;
+
         return $this->escape([
             'id' => (string) $manager->getRouteKey(),
             'is_active' => (bool) $manager->is_active,
@@ -24,8 +27,9 @@ class ManagerTransformer extends TransformerAbstract
             'username' => (string) $manager->username,
             'email' => (string) $manager->email,
             'phone' => (string) $manager->phone,
-            'country_code' => (string) $manager->country_code ? country($manager->country_code)->getName() : null,
-            'language_code' => (string) $manager->language_code ? language($manager->language_code)->getName() : null,
+            'country_code' => (string) optional($country)->getName(),
+            'country_emoji' => (string) optional($country)->getEmoji(),
+            'language_code' => (string) optional($language)->getName(),
             'title' => (string) $manager->title,
             'birthday' => (string) $manager->birthday,
             'gender' => (string) $manager->gender,
