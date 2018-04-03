@@ -9,7 +9,7 @@ use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
 // Adminarea breadcrumbs
 Breadcrumbs::register('adminarea.managers.index', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.adminarea'), route('adminarea.home'));
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.managers'), route('adminarea.managers.index'));
 });
 
@@ -53,7 +53,7 @@ Breadcrumbs::register('adminarea.managers.attributes', function (BreadcrumbsGene
 });
 
 Breadcrumbs::register('adminarea.members.index', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.adminarea'), route('adminarea.home'));
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.members'), route('adminarea.members.index'));
 });
 
@@ -98,7 +98,7 @@ Breadcrumbs::register('adminarea.members.attributes', function (BreadcrumbsGener
 
 // Managerarea breadcrumbs
 Breadcrumbs::register('managerarea.roles.index', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.managerarea'), route('managerarea.home'));
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('rinvex.tenants.active')->name, route('managerarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.roles'), route('managerarea.roles.index'));
 });
 
@@ -130,7 +130,7 @@ Breadcrumbs::register('managerarea.roles.logs', function (BreadcrumbsGenerator $
 });
 
 Breadcrumbs::register('managerarea.members.index', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.managerarea'), route('managerarea.home'));
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('rinvex.tenants.active')->name, route('managerarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.members'), route('managerarea.members.index'));
 });
 
@@ -174,7 +174,7 @@ Breadcrumbs::register('managerarea.members.attributes', function (BreadcrumbsGen
 });
 
 Breadcrumbs::register('managerarea.managers.index', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.trans('cortex/foundation::common.managerarea'), route('managerarea.home'));
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('rinvex.tenants.active')->name, route('managerarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.managers'), route('managerarea.managers.index'));
 });
 

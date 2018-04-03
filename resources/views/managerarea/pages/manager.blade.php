@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ $currentTenant->name }} » {{ trans('cortex/foundation::common.managerarea') }} » {{ trans('cortex/auth::common.managers') }} » {{ $manager->exists ? $manager->username : trans('cortex/auth::common.create_manager') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 @push('inline-scripts')
