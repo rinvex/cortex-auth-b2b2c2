@@ -17,16 +17,4 @@ class RegistrationController extends AbstractController
 
         $this->middleware($this->getGuestMiddleware())->except($this->middlewareWhitelist);
     }
-
-    /**
-     * Redirect to member registration.
-     *
-     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
-     */
-    public function index()
-    {
-        return intend([
-            'url' => route('frontarea.register.tenant'),
-        ]);
-    }
 }

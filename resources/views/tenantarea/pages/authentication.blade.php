@@ -3,7 +3,7 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ $currentTenant->name }} » {{ trans('cortex/auth::common.login') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Scripts --}}
@@ -49,7 +49,7 @@
                         <div>
                             {{ Html::link(route('tenantarea.register'), trans('cortex/auth::common.account_register')) }}
                             {{ trans('cortex/foundation::common.or') }}
-                            {{ Html::link(route('tenantarea.passwordreset.request'), trans('cortex/auth::common.password_reset')) }}
+                            {{ Html::link(route('tenantarea.passwordreset.request'), trans('cortex/auth::common.passwordreset')) }}
                         </div>
 
                     {{ Form::close() }}

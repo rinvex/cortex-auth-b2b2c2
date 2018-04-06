@@ -7,96 +7,6 @@ use Cortex\Auth\Models\Member;
 use Cortex\Auth\Models\Manager;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
-// Adminarea breadcrumbs
-Breadcrumbs::register('adminarea.managers.index', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.managers'), route('adminarea.managers.index'));
-});
-
-Breadcrumbs::register('adminarea.managers.import', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->parent('adminarea.managers.index');
-    $breadcrumbs->push(trans('cortex/auth::common.import'), route('adminarea.managers.import'));
-});
-
-Breadcrumbs::register('adminarea.managers.import.logs', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->parent('adminarea.managers.index');
-    $breadcrumbs->push(trans('cortex/auth::common.import'), route('adminarea.managers.import'));
-    $breadcrumbs->push(trans('cortex/auth::common.logs'), route('adminarea.managers.import.logs'));
-});
-
-Breadcrumbs::register('adminarea.managers.create', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->parent('adminarea.managers.index');
-    $breadcrumbs->push(trans('cortex/auth::common.create_manager'), route('adminarea.managers.create'));
-});
-
-Breadcrumbs::register('adminarea.managers.edit', function (BreadcrumbsGenerator $breadcrumbs, Manager $manager) {
-    $breadcrumbs->parent('adminarea.managers.index');
-    $breadcrumbs->push($manager->username, route('adminarea.managers.edit', ['manager' => $manager]));
-});
-
-Breadcrumbs::register('adminarea.managers.logs', function (BreadcrumbsGenerator $breadcrumbs, Manager $manager) {
-    $breadcrumbs->parent('adminarea.managers.index');
-    $breadcrumbs->push($manager->username, route('adminarea.managers.edit', ['manager' => $manager]));
-    $breadcrumbs->push(trans('cortex/auth::common.logs'), route('adminarea.managers.logs', ['manager' => $manager]));
-});
-
-Breadcrumbs::register('adminarea.managers.activities', function (BreadcrumbsGenerator $breadcrumbs, Manager $manager) {
-    $breadcrumbs->parent('adminarea.managers.index');
-    $breadcrumbs->push($manager->username, route('adminarea.managers.edit', ['manager' => $manager]));
-    $breadcrumbs->push(trans('cortex/auth::common.activities'), route('adminarea.managers.activities', ['manager' => $manager]));
-});
-
-Breadcrumbs::register('adminarea.managers.attributes', function (BreadcrumbsGenerator $breadcrumbs, Manager $manager) {
-    $breadcrumbs->parent('adminarea.managers.index');
-    $breadcrumbs->push($manager->username, route('adminarea.managers.edit', ['manager' => $manager]));
-    $breadcrumbs->push(trans('cortex/auth::common.attributes'), route('adminarea.managers.attributes', ['manager' => $manager]));
-});
-
-Breadcrumbs::register('adminarea.members.index', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('adminarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.members'), route('adminarea.members.index'));
-});
-
-Breadcrumbs::register('adminarea.members.import', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->parent('adminarea.members.index');
-    $breadcrumbs->push(trans('cortex/auth::common.import'), route('adminarea.members.import'));
-});
-
-Breadcrumbs::register('adminarea.members.import.logs', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->parent('adminarea.members.index');
-    $breadcrumbs->push(trans('cortex/auth::common.import'), route('adminarea.members.import'));
-    $breadcrumbs->push(trans('cortex/auth::common.logs'), route('adminarea.members.import.logs'));
-});
-
-Breadcrumbs::register('adminarea.members.create', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->parent('adminarea.members.index');
-    $breadcrumbs->push(trans('cortex/auth::common.create_member'), route('adminarea.members.create'));
-});
-
-Breadcrumbs::register('adminarea.members.edit', function (BreadcrumbsGenerator $breadcrumbs, Member $member) {
-    $breadcrumbs->parent('adminarea.members.index');
-    $breadcrumbs->push($member->username, route('adminarea.members.edit', ['member' => $member]));
-});
-
-Breadcrumbs::register('adminarea.members.logs', function (BreadcrumbsGenerator $breadcrumbs, Member $member) {
-    $breadcrumbs->parent('adminarea.members.index');
-    $breadcrumbs->push($member->username, route('adminarea.members.edit', ['member' => $member]));
-    $breadcrumbs->push(trans('cortex/auth::common.logs'), route('adminarea.members.logs', ['member' => $member]));
-});
-
-Breadcrumbs::register('adminarea.members.activities', function (BreadcrumbsGenerator $breadcrumbs, Member $member) {
-    $breadcrumbs->parent('adminarea.members.index');
-    $breadcrumbs->push($member->username, route('adminarea.members.edit', ['member' => $member]));
-    $breadcrumbs->push(trans('cortex/auth::common.activities'), route('adminarea.members.activities', ['member' => $member]));
-});
-
-Breadcrumbs::register('adminarea.members.attributes', function (BreadcrumbsGenerator $breadcrumbs, Member $member) {
-    $breadcrumbs->parent('adminarea.members.index');
-    $breadcrumbs->push($member->username, route('adminarea.members.edit', ['member' => $member]));
-    $breadcrumbs->push(trans('cortex/auth::common.attributes'), route('adminarea.members.attributes', ['member' => $member]));
-});
-
-// Managerarea breadcrumbs
 Breadcrumbs::register('managerarea.roles.index', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('rinvex.tenants.active')->name, route('managerarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.roles'), route('managerarea.roles.index'));
@@ -215,4 +125,65 @@ Breadcrumbs::register('managerarea.managers.attributes', function (BreadcrumbsGe
     $breadcrumbs->parent('managerarea.managers.index');
     $breadcrumbs->push($manager->username, route('managerarea.managers.edit', ['manager' => $manager]));
     $breadcrumbs->push(trans('cortex/auth::common.attributes'), route('managerarea.managers.attributes', ['manager' => $manager]));
+});
+
+// Account Breadcrumbs
+Breadcrumbs::register('managerarea.login', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.login'), route('managerarea.login'));
+});
+
+Breadcrumbs::register('managerarea.passwordreset.request', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.passwordreset_request'), route('managerarea.passwordreset.request'));
+});
+
+Breadcrumbs::register('managerarea.passwordreset.reset', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.passwordreset'), route('managerarea.passwordreset.reset'));
+});
+
+Breadcrumbs::register('managerarea.verification.email.request', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.verification_email_request'), route('managerarea.verification.email.request'));
+});
+
+Breadcrumbs::register('managerarea.verification.phone.request', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.verification_phone_request'), route('managerarea.verification.phone.request'));
+});
+
+Breadcrumbs::register('managerarea.verification.phone.verify', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.verify_phone'), route('managerarea.verification.phone.verify'));
+});
+
+Breadcrumbs::register('managerarea.account.settings', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_settings'), route('managerarea.account.settings'));
+});
+
+Breadcrumbs::register('managerarea.account.password', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_password'), route('managerarea.account.password'));
+});
+
+Breadcrumbs::register('managerarea.account.attributes', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_attributes'), route('managerarea.account.attributes'));
+});
+
+Breadcrumbs::register('managerarea.account.sessions', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_sessions'), route('managerarea.account.sessions'));
+});
+
+Breadcrumbs::register('managerarea.account.twofactor', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account_twofactor'), route('managerarea.account.twofactor'));
+});
+
+Breadcrumbs::register('managerarea.account.twofactor.totp.enable', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::twofactor.configure'), route('managerarea.account.twofactor.totp.enable'));
 });

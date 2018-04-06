@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-Route::domain('{subdomain}.'.domain())->group(function () {
-    Route::name('tenantarea.')
+Route::domain(domain())->group(function () {
+    Route::name('frontarea.')
         ->middleware(['web', 'nohttpcache'])
-        ->namespace('Cortex\Auth\B2B2C2\Http\Controllers\Tenantarea')
-        ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.tenantarea') : config('cortex.foundation.route.prefix.tenantarea'))->group(function () {
+        ->namespace('Cortex\Auth\B2B2C2\Http\Controllers\Frontarea')
+        ->prefix(config('cortex.foundation.route.locale_prefix') ? '{locale}/'.config('cortex.foundation.route.prefix.frontarea') : config('cortex.foundation.route.prefix.frontarea'))->group(function () {
 
         // Login Routes
             Route::get('login')->name('login')->uses('AuthenticationController@form');
@@ -14,8 +14,11 @@ Route::domain('{subdomain}.'.domain())->group(function () {
             Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
 
             // Registration Routes
-            Route::get('register')->name('register')->uses('RegistrationController@form');
-            Route::post('register')->name('register.member.process')->uses('RegistrationController@register');
+            Route::get('register')->name('register')->uses('RedirectionController@registration');
+            Route::get('register/member')->name('register.member')->uses('MemberRegistrationController@form');
+            Route::post('register/member')->name('register.member.process')->uses('MemberRegistrationController@register');
+            Route::get('register/tenant')->name('register.tenant')->uses('TenantRegistrationController@form');
+            Route::post('register/tenant')->name('register.tenant.process')->uses('TenantRegistrationController@register');
 
             // Reauthentication Routes
             Route::name('reauthentication.')->prefix('reauthentication')->group(function () {
@@ -27,6 +30,7 @@ Route::domain('{subdomain}.'.domain())->group(function () {
             });
 
             // Password Reset Routes
+            Route::get('passwordreset')->name('passwordreset')->uses('RedirectionController@passwordreset');
             Route::name('passwordreset.')->prefix('passwordreset')->group(function () {
                 Route::get('request')->name('request')->uses('PasswordResetController@request');
                 Route::post('send')->name('send')->uses('PasswordResetController@send');
@@ -35,6 +39,7 @@ Route::domain('{subdomain}.'.domain())->group(function () {
             });
 
             // Verification Routes
+            Route::get('verification')->name('verification')->uses('RedirectionController@verification');
             Route::name('verification.')->prefix('verification')->group(function () {
                 // Phone Verification Routes
                 Route::name('phone.')->prefix('phone')->group(function () {
@@ -75,8 +80,8 @@ Route::domain('{subdomain}.'.domain())->group(function () {
                 Route::delete('sessions/{session?}')->name('sessions.destroy')->uses('AccountSessionsController@destroy');
 
                 // Account TwoFactor Routes
+                Route::get('twofactor')->name('twofactor')->uses('AccountTwoFactorController@index');
                 Route::name('twofactor.')->prefix('twofactor')->group(function () {
-                    Route::get('/')->name('index')->uses('AccountTwoFactorController@index');
 
                     // Account TwoFactor TOTP Routes
                     Route::name('totp.')->prefix('totp')->group(function () {
