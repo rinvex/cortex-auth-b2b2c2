@@ -146,7 +146,7 @@ class ManagersController extends AuthorizedController
     public function importLogs(ImportLogsDataTable $importLogsDatatable)
     {
         return $importLogsDatatable->with([
-            'resource' => 'manager',
+            'resource' => trans('cortex/auth::common.manager'),
             'tabs' => 'adminarea.managers.tabs',
             'id' => 'adminarea-managers-import-logs-table',
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
@@ -276,7 +276,7 @@ class ManagersController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.managers.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'manager', 'identifier' => $manager->username])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.manager'), 'identifier' => $manager->username])],
         ]);
     }
 
@@ -293,7 +293,7 @@ class ManagersController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.managers.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'manager', 'identifier' => $manager->username])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.manager'), 'identifier' => $manager->username])],
         ]);
     }
 }

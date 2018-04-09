@@ -146,7 +146,7 @@ class MembersController extends AuthorizedController
     public function importLogs(ImportLogsDataTable $importLogsDatatable)
     {
         return $importLogsDatatable->with([
-            'resource' => 'member',
+            'resource' => trans('cortex/auth::common.member'),
             'tabs' => 'adminarea.members.tabs',
             'id' => 'adminarea-members-import-logs-table',
         ])->render('cortex/foundation::adminarea.pages.datatable-logs');
@@ -273,7 +273,7 @@ class MembersController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.members.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'member', 'identifier' => $member->username])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->username])],
         ]);
     }
 
@@ -302,7 +302,7 @@ class MembersController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.members.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'member', 'identifier' => $member->username])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->username])],
         ]);
     }
 }
