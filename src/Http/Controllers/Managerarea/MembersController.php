@@ -35,7 +35,7 @@ class MembersController extends AuthorizedController
     {
         return $membersDataTable->with([
             'id' => 'managerarea-members-index-table',
-        ])->render('cortex/foundation::managerarea.pages.datatable');
+        ])->render('cortex/foundation::managerarea.pages.datatable-index');
     }
 
     /**
@@ -52,7 +52,7 @@ class MembersController extends AuthorizedController
             'resource' => $member,
             'tabs' => 'managerarea.members.tabs',
             'id' => "managerarea-members-{$member->getRouteKey()}-logs-table",
-        ])->render('cortex/foundation::managerarea.pages.datatable-logs');
+        ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
     /**
@@ -69,7 +69,7 @@ class MembersController extends AuthorizedController
             'resource' => $member,
             'tabs' => 'managerarea.members.tabs',
             'id' => "managerarea-members-{$member->getRouteKey()}-activities-table",
-        ])->render('cortex/foundation::managerarea.pages.datatable-logs');
+        ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
     /**

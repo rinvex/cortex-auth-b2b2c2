@@ -34,7 +34,7 @@ class RolesController extends AuthorizedController
     {
         return $rolesDataTable->with([
             'id' => 'managerarea-roles-index-table',
-        ])->render('cortex/foundation::managerarea.pages.datatable');
+        ])->render('cortex/foundation::managerarea.pages.datatable-index');
     }
 
     /**
@@ -51,7 +51,7 @@ class RolesController extends AuthorizedController
             'resource' => $role,
             'tabs' => 'managerarea.roles.tabs',
             'id' => "managerarea-roles-{$role->getRouteKey()}-logs-table",
-        ])->render('cortex/foundation::managerarea.pages.datatable-logs');
+        ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
     /**

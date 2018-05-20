@@ -35,7 +35,7 @@ class ManagersController extends AuthorizedController
     {
         return $managersDataTable->with([
             'id' => 'adminarea-managers-index-table',
-        ])->render('cortex/foundation::adminarea.pages.datatable');
+        ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
 
     /**
@@ -52,7 +52,7 @@ class ManagersController extends AuthorizedController
             'resource' => $manager,
             'tabs' => 'adminarea.managers.tabs',
             'id' => "adminarea-managers-{$manager->getRouteKey()}-logs-table",
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -69,7 +69,7 @@ class ManagersController extends AuthorizedController
             'resource' => $manager,
             'tabs' => 'adminarea.managers.tabs',
             'id' => "adminarea-managers-{$manager->getRouteKey()}-activities-table",
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -149,7 +149,7 @@ class ManagersController extends AuthorizedController
             'resource' => trans('cortex/auth::common.manager'),
             'tabs' => 'adminarea.managers.tabs',
             'id' => 'adminarea-managers-import-logs-table',
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
