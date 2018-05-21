@@ -15,7 +15,7 @@ Menu::register('adminarea.sidebar', function (MenuGenerator $menu, Member $membe
 });
 
 Menu::register('adminarea.members.tabs', function (MenuGenerator $menu, Member $member) {
-    $menu->route(['adminarea.members.import'], trans('cortex/auth::common.file'))->ifCan('import', $member)->if(Route::is('adminarea.members.import*'));
+    $menu->route(['adminarea.members.import'], trans('cortex/auth::common.records'))->ifCan('import', $member)->if(Route::is('adminarea.members.import*'));
     $menu->route(['adminarea.members.import.logs'], trans('cortex/auth::common.logs'))->ifCan('import', $member)->if(Route::is('adminarea.members.import*'));
     $menu->route(['adminarea.members.create'], trans('cortex/auth::common.details'))->ifCan('create', $member)->if(Route::is('adminarea.members.create'));
     $menu->route(['adminarea.members.edit', ['member' => $member]], trans('cortex/auth::common.details'))->ifCan('update', $member)->if($member->exists);
@@ -25,7 +25,7 @@ Menu::register('adminarea.members.tabs', function (MenuGenerator $menu, Member $
 });
 
 Menu::register('adminarea.managers.tabs', function (MenuGenerator $menu, Manager $manager) {
-    $menu->route(['adminarea.managers.import'], trans('cortex/auth::common.file'))->ifCan('import', $manager)->if(Route::is('adminarea.managers.import*'));
+    $menu->route(['adminarea.managers.import'], trans('cortex/auth::common.records'))->ifCan('import', $manager)->if(Route::is('adminarea.managers.import*'));
     $menu->route(['adminarea.managers.import.logs'], trans('cortex/auth::common.logs'))->ifCan('import', $manager)->if(Route::is('adminarea.managers.import*'));
     $menu->route(['adminarea.managers.create'], trans('cortex/auth::common.details'))->ifCan('create', $manager)->if(Route::is('adminarea.managers.create'));
     $menu->route(['adminarea.managers.edit', ['manager' => $manager]], trans('cortex/auth::common.details'))->ifCan('update', $manager)->if($manager->exists);

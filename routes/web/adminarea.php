@@ -14,7 +14,8 @@ Route::domain(domain())->group(function () {
                      Route::get('/')->name('index')->uses('MembersController@index');
                      Route::post('ajax')->name('ajax')->uses('MembersController@ajax'); // @TODO: to be refactored!
                      Route::get('import')->name('import')->uses('MembersController@import');
-                     Route::post('import')->name('hoard')->uses('MembersController@hoard');
+                     Route::post('import')->name('stash')->uses('MembersController@stash');
+                     Route::post('hoard')->name('hoard')->uses('MembersController@hoard');
                      Route::get('import/logs')->name('import.logs')->uses('MembersController@importLogs');
                      Route::get('create')->name('create')->uses('MembersController@create');
                      Route::post('create')->name('store')->uses('MembersController@store');
@@ -32,7 +33,8 @@ Route::domain(domain())->group(function () {
                  Route::name('managers.')->prefix('managers')->group(function () {
                      Route::get('/')->name('index')->uses('ManagersController@index');
                      Route::get('import')->name('import')->uses('ManagersController@import');
-                     Route::post('import')->name('hoard')->uses('ManagersController@hoard');
+                     Route::post('import')->name('stash')->uses('ManagersController@stash');
+                     Route::post('hoard')->name('hoard')->uses('ManagersController@hoard');
                      Route::get('import/logs')->name('import.logs')->uses('ManagersController@importLogs');
                      Route::get('create')->name('create')->uses('ManagersController@create');
                      Route::post('create')->name('store')->uses('ManagersController@store');

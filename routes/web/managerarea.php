@@ -103,7 +103,8 @@ Route::domain('{subdomain}.'.domain())->group(function () {
                  Route::name('roles.')->prefix('roles')->group(function () {
                      Route::get('/')->name('index')->uses('RolesController@index');
                      Route::get('import')->name('import')->uses('RolesController@import');
-                     Route::post('import')->name('hoard')->uses('RolesController@hoard');
+                     Route::post('import')->name('stash')->uses('RolesController@stash');
+                     Route::post('hoard')->name('hoard')->uses('RolesController@hoard');
                      Route::get('import/logs')->name('import.logs')->uses('RolesController@importLogs');
                      Route::get('create')->name('create')->uses('RolesController@create');
                      Route::post('create')->name('store')->uses('RolesController@store');
@@ -117,7 +118,8 @@ Route::domain('{subdomain}.'.domain())->group(function () {
                  Route::name('members.')->prefix('members')->group(function () {
                      Route::get('/')->name('index')->uses('MembersController@index');
                      Route::get('import')->name('import')->uses('MembersController@import');
-                     Route::post('import')->name('hoard')->uses('MembersController@hoard');
+                     Route::post('import')->name('stash')->uses('MembersController@stash');
+                     Route::post('hoard')->name('hoard')->uses('MembersController@hoard');
                      Route::get('import/logs')->name('import.logs')->uses('MembersController@importLogs');
                      Route::get('create')->name('create')->uses('MembersController@create');
                      Route::post('create')->name('store')->uses('MembersController@store');
@@ -135,7 +137,8 @@ Route::domain('{subdomain}.'.domain())->group(function () {
                  Route::name('managers.')->prefix('managers')->group(function () {
                      Route::get('/')->name('index')->uses('ManagersController@index');
                      Route::get('import')->name('import')->uses('ManagersController@import');
-                     Route::post('import')->name('hoard')->uses('ManagersController@hoard');
+                     Route::post('import')->name('stash')->uses('ManagersController@stash');
+                     Route::post('hoard')->name('hoard')->uses('ManagersController@hoard');
                      Route::get('import/logs')->name('import.logs')->uses('ManagersController@importLogs');
                      Route::get('create')->name('create')->uses('ManagersController@create');
                      Route::post('create')->name('store')->uses('ManagersController@store');
