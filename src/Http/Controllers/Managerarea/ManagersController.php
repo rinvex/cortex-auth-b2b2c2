@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\B2B2C2\Http\Controllers\Managerarea;
 
-use Cortex\Foundation\DataTables\ImportRecordsDataTable;
 use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Manager;
@@ -14,6 +13,7 @@ use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
 use Cortex\Foundation\DataTables\ImportLogsDataTable;
 use Cortex\Foundation\Http\Requests\ImportFormRequest;
+use Cortex\Foundation\DataTables\ImportRecordsDataTable;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\B2B2C2\DataTables\Managerarea\ManagersDataTable;
 use Cortex\Auth\B2B2C2\Http\Requests\Managerarea\ManagerFormRequest;
