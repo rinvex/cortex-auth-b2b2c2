@@ -187,11 +187,11 @@
                                         {{ Form::text('profile_picture', null, ['class' => 'form-control file-name', 'placeholder' => trans('cortex/auth::common.profile_picture'), 'readonly' => 'readonly']) }}
 
                                         <span class="input-group-btn">
-                                                    <span class="btn btn-default btn-file">
-                                                        {{ trans('cortex/auth::common.browse') }}
-                                                        {{ Form::file('profile_picture', ['class' => 'form-control']) }}
-                                                    </span>
-                                                </span>
+                                            <span class="btn btn-default btn-file">
+                                                {{ trans('cortex/auth::common.browse') }}
+                                                {{ Form::file('profile_picture', ['class' => 'form-control']) }}
+                                            </span>
+                                        </span>
                                     </div>
 
                                     @if ($currentUser->exists && $currentUser->getMedia('profile_picture')->count())
@@ -217,11 +217,11 @@
                                         {{ Form::text('cover_photo', null, ['class' => 'form-control file-name', 'placeholder' => trans('cortex/auth::common.cover_photo'), 'readonly' => 'readonly']) }}
 
                                         <span class="input-group-btn">
-                                                    <span class="btn btn-default btn-file">
-                                                        {{ trans('cortex/auth::common.browse') }}
-                                                        {{ Form::file('cover_photo', ['class' => 'form-control']) }}
-                                                    </span>
-                                                </span>
+                                            <span class="btn btn-default btn-file">
+                                                {{ trans('cortex/auth::common.browse') }}
+                                                {{ Form::file('cover_photo', ['class' => 'form-control']) }}
+                                            </span>
+                                        </span>
                                     </div>
 
                                     @if ($currentUser->exists && $currentUser->getMedia('cover_photo')->count())
