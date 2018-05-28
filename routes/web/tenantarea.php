@@ -16,7 +16,7 @@ Route::domain('{subdomain}.'.domain())->group(function () {
             // Registration Routes
             Route::get('register')->name('register')->uses('RedirectionController@registration');
             Route::get('register')->name('register')->uses('RegistrationController@form');
-            Route::post('register')->name('register.member.process')->uses('RegistrationController@register');
+            Route::post('register')->name('register.process')->uses('RegistrationController@register');
 
             // Reauthentication Routes
             Route::name('reauthentication.')->prefix('reauthentication')->group(function () {

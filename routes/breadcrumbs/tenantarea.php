@@ -4,14 +4,9 @@ declare(strict_types=1);
 
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
-Breadcrumbs::register('tenantarea.register.member', function (BreadcrumbsGenerator $breadcrumbs) {
+Breadcrumbs::register('tenantarea.register', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.register'), route('tenantarea.register.member'));
-});
-
-Breadcrumbs::register('tenantarea.register.tenant', function (BreadcrumbsGenerator $breadcrumbs) {
-    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
-    $breadcrumbs->push(trans('cortex/auth::common.register'), route('tenantarea.register.tenant'));
+    $breadcrumbs->push(trans('cortex/auth::common.register'), route('tenantarea.register'));
 });
 
 Breadcrumbs::register('tenantarea.login', function (BreadcrumbsGenerator $breadcrumbs) {
