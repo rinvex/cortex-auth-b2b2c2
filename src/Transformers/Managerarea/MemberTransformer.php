@@ -35,6 +35,7 @@ class MemberTransformer extends TransformerAbstract
             'organization' => (string) $member->organization,
             'birthday' => (string) $member->birthday,
             'gender' => (string) $member->gender,
+            'social' => (array) $member->social,
             'last_activity' => (string) $member->last_activity,
             'created_at' => (string) $member->created_at,
             'updated_at' => (string) $member->updated_at,

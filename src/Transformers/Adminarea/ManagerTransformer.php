@@ -39,6 +39,7 @@ class ManagerTransformer extends TransformerAbstract
             'organization' => (string) $manager->organization,
             'birthday' => (string) $manager->birthday,
             'gender' => (string) $manager->gender,
+            'social' => (array) $manager->social,
             'last_activity' => (string) $manager->last_activity,
             'created_at' => (string) $manager->created_at,
             'updated_at' => (string) $manager->updated_at,
