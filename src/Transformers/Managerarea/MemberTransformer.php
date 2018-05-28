@@ -32,6 +32,7 @@ class MemberTransformer extends TransformerAbstract
             'country_emoji' => (string) optional($country)->getEmoji(),
             'language_code' => (string) optional($language)->getName(),
             'title' => (string) $member->title,
+            'organization' => (string) $member->organization,
             'birthday' => (string) $member->birthday,
             'gender' => (string) $member->gender,
             'last_activity' => (string) $member->last_activity,

@@ -36,6 +36,7 @@ class ManagerTransformer extends TransformerAbstract
             'country_emoji' => (string) optional($country)->getEmoji(),
             'language_code' => (string) optional($language)->getName(),
             'title' => (string) $manager->title,
+            'organization' => (string) $manager->organization,
             'birthday' => (string) $manager->birthday,
             'gender' => (string) $manager->gender,
             'last_activity' => (string) $manager->last_activity,
