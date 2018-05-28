@@ -23,7 +23,8 @@ class ManagerTransformer extends TransformerAbstract
         return $this->escape([
             'id' => (string) $manager->getRouteKey(),
             'is_active' => (bool) $manager->is_active,
-            'full_name' => (string) ($manager->full_name ?? $manager->username),
+            'given_name' => (string) $manager->given_name,
+            'family_name' => (string) $manager->family_name,
             'username' => (string) $manager->username,
             'email' => (string) $manager->email,
             'email_verified' => (bool) $manager->email_verified,

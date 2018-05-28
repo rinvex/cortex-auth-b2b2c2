@@ -28,11 +28,19 @@
 
                         <div class="centered"><strong>{{ trans('cortex/auth::common.account_register') }}</strong></div>
 
-                        <div class="form-group has-feedback{{ $errors->has('full_name') ? ' has-error' : '' }}">
-                            {{ Form::text('full_name', old('full_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.full_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                        <div class="form-group has-feedback{{ $errors->has('given_name') ? ' has-error' : '' }}">
+                            {{ Form::text('given_name', old('given_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.given_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
-                            @if ($errors->has('full_name'))
-                                <span class="help-block">{{ $errors->first('full_name') }}</span>
+                            @if ($errors->has('given_name'))
+                                <span class="help-block">{{ $errors->first('given_name') }}</span>
+                            @endif
+                        </div>
+
+                        <div class="form-group has-feedback{{ $errors->has('family_name') ? ' has-error' : '' }}">
+                            {{ Form::text('family_name', old('family_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.family_name')]) }}
+
+                            @if ($errors->has('family_name'))
+                                <span class="help-block">{{ $errors->first('family_name') }}</span>
                             @endif
                         </div>
 

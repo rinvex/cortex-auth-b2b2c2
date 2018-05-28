@@ -43,11 +43,19 @@
                                 <div id="collapseOne" class="collapse in">
                                     <div class="wizard-step-body">
 
-                                        <div class="form-group has-feedback{{ $errors->has('owner.full_name') ? ' has-error' : '' }}">
-                                            {{ Form::text('owner[full_name]', old('owner.full_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.full_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                                        <div class="form-group has-feedback{{ $errors->has('owner.given_name') ? ' has-error' : '' }}">
+                                            {{ Form::text('owner[given_name]', old('owner.given_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.given_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
-                                            @if ($errors->has('owner.full_name'))
-                                                <span class="help-block">{{ $errors->first('owner.full_name') }}</span>
+                                            @if ($errors->has('owner.given_name'))
+                                                <span class="help-block">{{ $errors->first('owner.given_name') }}</span>
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group has-feedback{{ $errors->has('owner.family_name') ? ' has-error' : '' }}">
+                                            {{ Form::text('owner[family_name]', old('owner.family_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.family_name')]) }}
+
+                                            @if ($errors->has('owner.family_name'))
+                                                <span class="help-block">{{ $errors->first('owner.family_name') }}</span>
                                             @endif
                                         </div>
 

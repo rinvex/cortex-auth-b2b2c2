@@ -23,7 +23,8 @@ class MemberTransformer extends TransformerAbstract
         return $this->escape([
             'id' => (string) $member->getRouteKey(),
             'is_active' => (bool) $member->is_active,
-            'full_name' => (string) ($member->full_name ?? $member->username),
+            'given_name' => (string) $member->given_name,
+            'family_name' => (string) $member->family_name,
             'username' => (string) $member->username,
             'email' => (string) $member->email,
             'email_verified' => (bool) $member->email_verified,
