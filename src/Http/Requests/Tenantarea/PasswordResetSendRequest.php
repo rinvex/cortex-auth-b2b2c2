@@ -14,7 +14,7 @@ class PasswordResetSendRequest extends PasswordResetRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|min:3|max:150|exists:'.config('cortex.auth.tables.members').',email',
+            'email' => 'required|email|min:3|max:150|exists_model:'.config('cortex.auth.models.member').',email',
         ];
     }
 

@@ -46,7 +46,7 @@ class PasswordResetProcessRequest extends PasswordResetRequest
             // Do not validate `token` here since at this stage we can NOT generate viewable error,
             // and it is been processed in the controller through EmailVerificationBroker anyway
             //'token' => 'required|regex:/^([0-9a-f]*)$/',
-            'email' => 'required|email|min:3|max:150|exists:'.config('cortex.auth.tables.members').',email',
+            'email' => 'required|email|min:3|max:150|exists_model:'.config('cortex.auth.models.member').',email',
         ];
     }
 
