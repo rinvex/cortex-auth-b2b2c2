@@ -50,6 +50,8 @@ class ManagerAttributesFormRequest extends FormRequest
                     $type = 'date';
                     break;
                 case 'text':
+                case 'check':
+                case 'select':
                 case 'varchar':
                     $type = 'string';
                     break;
