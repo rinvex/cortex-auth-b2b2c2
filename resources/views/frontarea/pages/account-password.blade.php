@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\AccountPasswordRequest::class)->selector('#frontarea-account-password-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\AccountPasswordRequest::class)->selector('#frontarea-account-password-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}

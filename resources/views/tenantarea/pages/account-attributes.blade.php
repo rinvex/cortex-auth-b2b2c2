@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Tenantarea\AccountAttributesRequest::class)->selector('#tenantarea-account-attributes-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Tenantarea\AccountAttributesRequest::class)->selector('#tenantarea-account-attributes-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}

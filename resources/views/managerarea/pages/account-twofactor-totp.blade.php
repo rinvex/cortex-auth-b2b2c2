@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\AccountTwoFactorTotpProcessRequest::class)->selector('#managerarea-twofactor-totp-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\AccountTwoFactorTotpProcessRequest::class)->selector('#managerarea-twofactor-totp-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}

@@ -7,7 +7,7 @@
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\MemberAttributesFormRequest::class)->selector("#managerarea-members-create-form, #managerarea-members-{$member->getRouteKey()}-update-attributes-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\MemberAttributesFormRequest::class)->selector("#managerarea-members-create-form, #managerarea-members-{$member->getRouteKey()}-update-attributes-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}

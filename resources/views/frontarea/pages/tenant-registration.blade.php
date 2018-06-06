@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\TenantRegistrationProcessRequest::class)->selector("#frontarea-tenant-registration-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\TenantRegistrationProcessRequest::class)->selector("#frontarea-tenant-registration-form")->ignore('.skip-validation') !!}
 
     <script>
         window.countries = {!! $countries !!};
@@ -129,7 +129,7 @@
                                         </div>
 
                                         <div class="form-group has-feedback{{ $errors->has('tenant.country_code') ? ' has-error' : '' }}">
-                                            {{ Form::hidden('tenant[country_code]', '') }}
+                                            {{ Form::hidden('tenant[country_code]', '', ['class' => 'skip-validation']) }}
                                             {{ Form::select('tenant[country_code]', [], null, ['class' => 'form-control select2 input-lg', 'placeholder' => trans('cortex/auth::common.select_country'), 'required' => 'required', 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
                                             @if ($errors->has('tenant.country_code'))

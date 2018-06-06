@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\AuthenticationRequest::class)->selector('#managerarea-login-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\AuthenticationRequest::class)->selector('#managerarea-login-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}

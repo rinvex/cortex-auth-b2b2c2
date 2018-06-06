@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\PhoneVerificationSendRequest::class)->selector('#managerarea-verification-phone-request-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\PhoneVerificationSendRequest::class)->selector('#managerarea-verification-phone-request-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}

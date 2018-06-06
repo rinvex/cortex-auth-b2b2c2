@@ -8,7 +8,7 @@
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Tenantarea\PasswordResetPostProcessRequest::class)->selector('#tenantarea-passwordreset-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Tenantarea\PasswordResetPostProcessRequest::class)->selector('#tenantarea-passwordreset-form')->ignore('.skip-validation') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection
@@ -26,8 +26,8 @@
 
                     {{ Form::open(['url' => route('tenantarea.passwordreset.process'), 'id' => 'tenantarea-passwordreset-form', 'role' => 'auth']) }}
 
-                        {{ Form::hidden('expiration', old('expiration', $expiration)) }}
-                        {{ Form::hidden('token', old('token', $token)) }}
+                        {{ Form::hidden('expiration', old('expiration', $expiration), ['class' => 'skip-validation']) }}
+                        {{ Form::hidden('token', old('token', $token), ['class' => 'skip-validation']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/auth::common.account_reset_password') }}</strong></div>
 
