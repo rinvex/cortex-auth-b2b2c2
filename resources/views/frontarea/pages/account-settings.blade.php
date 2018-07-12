@@ -33,7 +33,7 @@
                             <div class="col-md-4">
 
                                 <div class="form-group{{ $errors->has('given_name') ? ' has-error' : '' }}">
-                                    {{ Form::label('given_name', trans('cortex/auth::common.given_name')) }}
+                                    {{ Form::label('given_name', trans('cortex/auth::common.given_name'), ['class' => 'control-label']) }}
                                     {{ Form::text('given_name', null, ['class' => 'form-control', 'placeholder' => $currentUser->given_name ?: trans('cortex/auth::common.given_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
                                     @if ($errors->has('given_name'))
@@ -46,7 +46,7 @@
                             <div class="col-md-4">
 
                                 <div class="form-group{{ $errors->has('family_name') ? ' has-error' : '' }}">
-                                    {{ Form::label('family_name', trans('cortex/auth::common.family_name')) }}
+                                    {{ Form::label('family_name', trans('cortex/auth::common.family_name'), ['class' => 'control-label']) }}
                                     {{ Form::text('family_name', null, ['class' => 'form-control', 'placeholder' => $currentUser->family_name ?: trans('cortex/auth::common.family_name')]) }}
 
                                     @if ($errors->has('family_name'))
@@ -59,7 +59,7 @@
                             <div class="col-md-4">
 
                                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                                    {{ Form::label('username', trans('cortex/auth::common.username')) }}
+                                    {{ Form::label('username', trans('cortex/auth::common.username'), ['class' => 'control-label']) }}
                                     {{ Form::text('username', null, ['class' => 'form-control', 'placeholder' => $currentUser->username, 'required' => 'required']) }}
 
                                     @if ($errors->has('username'))
@@ -72,7 +72,7 @@
                             <div class="col-md-4">
 
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                    {{ Form::label('email', trans('cortex/auth::common.email')) }}
+                                    {{ Form::label('email', trans('cortex/auth::common.email'), ['class' => 'control-label']) }}
                                     {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required']) }}
 
                                     @if ($currentUser->email_verified)
@@ -95,7 +95,7 @@
                             <div class="col-md-4">
 
                                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                                    {{ Form::label('title', trans('cortex/auth::common.title')) }}
+                                    {{ Form::label('title', trans('cortex/auth::common.title'), ['class' => 'control-label']) }}
                                     {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => $currentUser->title ?: trans('cortex/auth::common.title')]) }}
 
                                     @if ($errors->has('title'))
@@ -108,7 +108,7 @@
                             <div class="col-md-4">
 
                                 <div class="form-group{{ $errors->has('organization') ? ' has-error' : '' }}">
-                                    {{ Form::label('organization', trans('cortex/auth::common.organization')) }}
+                                    {{ Form::label('organization', trans('cortex/auth::common.organization'), ['class' => 'control-label']) }}
                                     {{ Form::text('organization', null, ['class' => 'form-control', 'placeholder' => $currentUser->organization ?: trans('cortex/auth::common.organization')]) }}
 
                                     @if ($errors->has('organization'))
@@ -121,7 +121,7 @@
                             <div class="col-md-4">
 
                                 <div class="form-group{{ $errors->has('country_code') ? ' has-error' : '' }}">
-                                    {{ Form::label('country_code', trans('cortex/auth::common.country')) }}
+                                    {{ Form::label('country_code', trans('cortex/auth::common.country'), ['class' => 'control-label']) }}
                                     {{ Form::hidden('country_code', '', ['class' => 'skip-validation']) }}
                                     {{ Form::select('country_code', [], null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/auth::common.select_country'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
@@ -135,7 +135,7 @@
                             <div class="col-md-4">
 
                                 <div class="form-group{{ $errors->has('language_code') ? ' has-error' : '' }}">
-                                    {{ Form::label('language_code', trans('cortex/auth::common.language')) }}
+                                    {{ Form::label('language_code', trans('cortex/auth::common.language'), ['class' => 'control-label']) }}
                                     {{ Form::hidden('language_code', '', ['class' => 'skip-validation']) }}
                                     {{ Form::select('language_code', $languages, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/auth::common.select_language'), 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
@@ -153,7 +153,7 @@
                             <div class="col-md-4">
 
                                 <div class="form-group has-feedback{{ $errors->has('phone') ? ' has-error' : '' }}">
-                                    {{ Form::label('phone', trans('cortex/auth::common.phone')) }}
+                                    {{ Form::label('phone', trans('cortex/auth::common.phone'), ['class' => 'control-label']) }}
                                     {{ Form::tel('phone_input', $currentUser->phone, ['class' => 'form-control', 'placeholder' => $currentUser->phone ?: trans('cortex/auth::common.phone')]) }}
 
                                     @if ($currentUser->phone_verified)
@@ -173,7 +173,7 @@
                             <div class="col-md-4">
 
                                 <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
-                                    {{ Form::label('gender', trans('cortex/auth::common.gender')) }}
+                                    {{ Form::label('gender', trans('cortex/auth::common.gender'), ['class' => 'control-label']) }}
                                     {{ Form::hidden('gender', '', ['class' => 'skip-validation']) }}
                                     {{ Form::select('gender', $genders, null, ['class' => 'form-control select2', 'placeholder' => trans('cortex/auth::common.select_gender'), 'data-allow-clear' => 'true', 'data-minimum-results-for-search' => 'Infinity', 'data-width' => '100%']) }}
 
@@ -187,8 +187,7 @@
                             <div class="col-md-4">
 
                                 <div class="form-group has-feedback{{ $errors->has('birthday') ? ' has-error' : '' }}">
-                                    {{ Form::label('birthday', trans('cortex/auth::common.birthday')) }}
-
+                                    {{ Form::label('birthday', trans('cortex/auth::common.birthday'), ['class' => 'control-label']) }}
                                     {{ Form::text('birthday', null, ['class' => 'form-control datepicker', 'data-locale' => '{"format": "YYYY-MM-DD"}', 'data-single-date-picker' => 'true', 'data-show-dropdowns' => 'true', 'data-auto-apply' => 'true']) }}
 
                                     @if ($errors->has('birthday'))
