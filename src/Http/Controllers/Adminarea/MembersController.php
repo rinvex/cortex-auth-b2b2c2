@@ -111,8 +111,8 @@ class MembersController extends AuthorizedController
     /**
      * Import members.
      *
-     * @param \Cortex\Auth\Models\Member                  $member
-     * @param \Cortex\Foundation\DataTables\LogsDataTable $logsDataTable
+     * @param \Cortex\Auth\Models\Member                           $member
+     * @param \Cortex\Foundation\DataTables\ImportRecordsDataTable $importRecordsDataTable
      *
      * @return \Illuminate\View\View
      */
@@ -330,6 +330,8 @@ class MembersController extends AuthorizedController
      * Destroy given member.
      *
      * @param \Cortex\Auth\Models\Member $member
+     *
+     * @throws \Exception
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */

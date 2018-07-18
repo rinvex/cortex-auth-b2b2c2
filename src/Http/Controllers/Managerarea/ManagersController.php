@@ -319,6 +319,8 @@ class ManagersController extends AuthorizedController
      *
      * @param \Cortex\Auth\Models\Manager $manager
      *
+     * @throws \Exception
+     *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function destroy(Manager $manager)

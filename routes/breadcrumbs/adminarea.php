@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Cortex\Auth\Models\Member;
 use Cortex\Auth\Models\Manager;
+use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
 Breadcrumbs::register('adminarea.home', function (BreadcrumbsGenerator $breadcrumbs) {

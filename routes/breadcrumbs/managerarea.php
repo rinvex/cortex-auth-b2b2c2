@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Cortex\Auth\Models\Role;
 use Cortex\Auth\Models\Member;
 use Cortex\Auth\Models\Manager;
+use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator;
 
 Breadcrumbs::register('managerarea.roles.index', function (BreadcrumbsGenerator $breadcrumbs) {
