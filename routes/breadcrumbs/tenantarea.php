@@ -40,6 +40,11 @@ Breadcrumbs::register('tenantarea.verification.phone.verify', function (Breadcru
     $breadcrumbs->push(trans('cortex/auth::common.verify_phone'), route('tenantarea.verification.phone.verify'));
 });
 
+Breadcrumbs::register('tenantarea.account', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account'), route('tenantarea.account'));
+});
+
 Breadcrumbs::register('tenantarea.account.settings', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('tenantarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.account_settings'), route('tenantarea.account.settings'));

@@ -17,9 +17,7 @@ class AccountSettingsController extends AuthenticatedController
      */
     public function index()
     {
-        return intend([
-            'url' => route('tenantarea.account.settings'),
-        ]);
+        return view('cortex/auth::tenantarea.pages.account-index');
     }
 
     /**

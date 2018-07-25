@@ -17,9 +17,7 @@ class AccountSettingsController extends AuthenticatedController
      */
     public function index()
     {
-        return intend([
-            'url' => route('frontarea.account.settings'),
-        ]);
+        return view('cortex/auth::frontarea.pages.account-index');
     }
 
     /**

@@ -45,6 +45,11 @@ Breadcrumbs::register('frontarea.verification.phone.verify', function (Breadcrum
     $breadcrumbs->push(trans('cortex/auth::common.verify_phone'), route('frontarea.verification.phone.verify'));
 });
 
+Breadcrumbs::register('frontarea.account', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('frontarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account'), route('frontarea.account'));
+});
+
 Breadcrumbs::register('frontarea.account.settings', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-home"></i> '.config('app.name'), route('frontarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.account_settings'), route('frontarea.account.settings'));

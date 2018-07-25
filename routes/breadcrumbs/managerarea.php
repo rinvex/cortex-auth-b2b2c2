@@ -159,6 +159,11 @@ Breadcrumbs::register('managerarea.verification.phone.verify', function (Breadcr
     $breadcrumbs->push(trans('cortex/auth::common.verify_phone'), route('managerarea.verification.phone.verify'));
 });
 
+Breadcrumbs::register('managerarea.account', function (BreadcrumbsGenerator $breadcrumbs) {
+    $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
+    $breadcrumbs->push(trans('cortex/auth::common.account'), route('managerarea.account'));
+});
+
 Breadcrumbs::register('managerarea.account.settings', function (BreadcrumbsGenerator $breadcrumbs) {
     $breadcrumbs->push('<i class="fa fa-dashboard"></i> '.config('app.name'), route('managerarea.home'));
     $breadcrumbs->push(trans('cortex/auth::common.account_settings'), route('managerarea.account.settings'));
