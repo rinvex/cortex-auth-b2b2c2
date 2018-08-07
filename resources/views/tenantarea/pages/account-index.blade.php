@@ -9,17 +9,19 @@
 {{-- Main Content --}}
 @section('content')
 
-    <div class="container">
+    <div id="headerwrap">
+        <div class="container">
 
-        {{-- Main content --}}
-        <div class="row">
-            <div class="col-md-12">
-                <h1><i class="fa fa-dashboard"></i> {{ trans('cortex/foundation::common.profile_welcome') }}</h1>
-                <h4>{{ trans('cortex/foundation::common.profile_welcome_body') }}</h4>
+            {{-- Main content --}}
+            <div class="row">
+                <div class="col-md-12">
+                    <h1><i class="fa fa-dashboard"></i> {{ trans('cortex/foundation::common.profile_welcome') }}</h1>
+                    <h3>{{ trans('cortex/foundation::common.profile_welcome_body') }}</h3>
+                </div>
+
             </div>
 
         </div>
-
     </div>
 
 @endsection
