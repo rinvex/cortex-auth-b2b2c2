@@ -94,6 +94,7 @@
 
                             <div class="col-md-4">
 
+                                {{-- Title --}}
                                 <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                                     {{ Form::label('title', trans('cortex/auth::common.title'), ['class' => 'control-label']) }}
                                     {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => $currentUser->title ?: trans('cortex/auth::common.title')]) }}
@@ -107,6 +108,7 @@
 
                             <div class="col-md-4">
 
+                                {{-- Organization --}}
                                 <div class="form-group{{ $errors->has('organization') ? ' has-error' : '' }}">
                                     {{ Form::label('organization', trans('cortex/auth::common.organization'), ['class' => 'control-label']) }}
                                     {{ Form::text('organization', null, ['class' => 'form-control', 'placeholder' => $currentUser->organization ?: trans('cortex/auth::common.organization')]) }}
@@ -120,6 +122,7 @@
 
                             <div class="col-md-4">
 
+                                {{-- Country Code --}}
                                 <div class="form-group{{ $errors->has('country_code') ? ' has-error' : '' }}">
                                     {{ Form::label('country_code', trans('cortex/auth::common.country'), ['class' => 'control-label']) }}
                                     {{ Form::hidden('country_code', '', ['class' => 'skip-validation', 'id' => 'country_code_hidden']) }}
