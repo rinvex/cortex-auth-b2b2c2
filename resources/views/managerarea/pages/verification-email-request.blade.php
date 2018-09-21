@@ -3,12 +3,12 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.verification_email_request') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\EmailVerificationSendRequest::class)->selector('#managerarea-verification-email-request-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\EmailVerificationSendRequest::class)->selector('#managerarea-verification-email-request-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -16,7 +16,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ route('frontarea.home') }}"><b>{{ config('app.name') }}</b></a>
+            <a href="{{ route('frontarea.home') }}"><b>{{ $currentTenant->name }}</b></a>
         </div>
 
         <div class="login-box-body">

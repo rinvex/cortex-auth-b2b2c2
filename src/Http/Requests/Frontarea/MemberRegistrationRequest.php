@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\B2B2C2\Http\Requests\Frontarea;
 
+use Rinvex\Support\Traits\Escaper;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\Exceptions\GenericException;
 
-class RegistrationRequest extends FormRequest
+class MemberRegistrationRequest extends FormRequest
 {
+    use Escaper;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -23,6 +26,19 @@ class RegistrationRequest extends FormRequest
         }
 
         return true;
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param \Illuminate\Validation\Validator $validator
+     *
+     * @return void
+     */
+    public function withValidator($validator): void
+    {
+        // Sanitize input data before submission
+        $this->replace(array_merge($this->all(), $this->escape($this->except(['password', 'password_confirmation']))));
     }
 
     /**

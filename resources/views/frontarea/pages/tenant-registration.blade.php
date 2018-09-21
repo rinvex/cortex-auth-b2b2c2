@@ -3,16 +3,16 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.register') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\RegistrationProcessRequest::class)->selector("#frontarea-registration-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\TenantRegistrationProcessRequest::class)->selector("#frontarea-tenant-registration-form")->ignore('.skip-validation') !!}
 
     <script>
         window.countries = {!! $countries !!};
-        window.selectedCountry = '{{ old('country_code') }}';
+        window.selectedCountry = '{{ old('tenant.country_code') }}';
     </script>
 @endpush
 
@@ -29,7 +29,7 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('frontarea.register.process'), 'id' => 'frontarea-registration-form', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('frontarea.register.tenant.process'), 'id' => 'frontarea-tenant-registration-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/auth::common.account_register') }}</strong></div>
 
@@ -37,41 +37,57 @@
                             <div class="panel wizard-step">
                                 <div>
                                     <h4 class="wizard-step-title">
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{ trans('cortex/auth::common.manager_account') }}</a>
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{ trans('cortex/auth::common.owner_account') }}</a>
                                     </h4>
                                 </div>
                                 <div id="collapseOne" class="collapse in">
                                     <div class="wizard-step-body">
 
-                                        <div class="form-group has-feedback{{ $errors->has('manager.username') ? ' has-error' : '' }}">
-                                            {{ Form::text('manager[username]', old('manager.username'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.username'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                                        <div class="form-group has-feedback{{ $errors->has('owner.given_name') ? ' has-error' : '' }}">
+                                            {{ Form::text('owner[given_name]', old('owner.given_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.given_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
-                                            @if ($errors->has('manager.username'))
-                                                <span class="help-block">{{ $errors->first('manager.username') }}</span>
+                                            @if ($errors->has('owner.given_name'))
+                                                <span class="help-block">{{ $errors->first('owner.given_name') }}</span>
                                             @endif
                                         </div>
 
-                                        <div class="form-group has-feedback{{ $errors->has('manager.email') ? ' has-error' : '' }}">
-                                            {{ Form::email('manager[email]', old('manager.email'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required']) }}
+                                        <div class="form-group has-feedback{{ $errors->has('owner.family_name') ? ' has-error' : '' }}">
+                                            {{ Form::text('owner[family_name]', old('owner.family_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.family_name')]) }}
 
-                                            @if ($errors->has('manager.email'))
-                                                <span class="help-block">{{ $errors->first('manager.email') }}</span>
+                                            @if ($errors->has('owner.family_name'))
+                                                <span class="help-block">{{ $errors->first('owner.family_name') }}</span>
                                             @endif
                                         </div>
 
-                                        <div class="form-group has-feedback{{ $errors->has('manager.password') ? ' has-error' : '' }}">
-                                            {{ Form::password('manager[password]', ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.password'), 'required' => 'required']) }}
+                                        <div class="form-group has-feedback{{ $errors->has('owner.username') ? ' has-error' : '' }}">
+                                            {{ Form::text('owner[username]', old('owner.username'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.username'), 'required' => 'required']) }}
 
-                                            @if ($errors->has('manager.password'))
-                                                <span class="help-block">{{ $errors->first('manager.password') }}</span>
+                                            @if ($errors->has('owner.username'))
+                                                <span class="help-block">{{ $errors->first('owner.username') }}</span>
                                             @endif
                                         </div>
 
-                                        <div class="form-group has-feedback{{ $errors->has('manager.password_confirmation') ? ' has-error' : '' }}">
-                                            {{ Form::password('manager[password_confirmation]', ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.password_confirmation'), 'required' => 'required']) }}
+                                        <div class="form-group has-feedback{{ $errors->has('owner.email') ? ' has-error' : '' }}">
+                                            {{ Form::email('owner[email]', old('owner.email'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required']) }}
 
-                                            @if ($errors->has('manager.password_confirmation'))
-                                                <span class="help-block">{{ $errors->first('manager.password_confirmation') }}</span>
+                                            @if ($errors->has('owner.email'))
+                                                <span class="help-block">{{ $errors->first('owner.email') }}</span>
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group has-feedback{{ $errors->has('owner.password') ? ' has-error' : '' }}">
+                                            {{ Form::password('owner[password]', ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.password'), 'required' => 'required']) }}
+
+                                            @if ($errors->has('owner.password'))
+                                                <span class="help-block">{{ $errors->first('owner.password') }}</span>
+                                            @endif
+                                        </div>
+
+                                        <div class="form-group has-feedback{{ $errors->has('owner.password_confirmation') ? ' has-error' : '' }}">
+                                            {{ Form::password('owner[password_confirmation]', ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.password_confirmation'), 'required' => 'required']) }}
+
+                                            @if ($errors->has('owner.password_confirmation'))
+                                                <span class="help-block">{{ $errors->first('owner.password_confirmation') }}</span>
                                             @endif
                                         </div>
 
@@ -88,11 +104,11 @@
                                 <div id="collapseTwo" class="panel-collapse collapse">
                                     <div class="wizard-step-body">
 
-                                        <div class="form-group has-feedback{{ $errors->has('tenant.name') ? ' has-error' : '' }}">
-                                            {{ Form::text('tenant[name]', old('tenant.name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.name'), 'data-slugify' => '[name="tenant\[slug\]"]', 'required' => 'required']) }}
+                                        <div class="form-group has-feedback{{ $errors->has('tenant.title') ? ' has-error' : '' }}">
+                                            {{ Form::text('tenant[title]', old('tenant.title'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.title'), 'data-slugify' => '[name="tenant\[name\]"]', 'required' => 'required']) }}
 
-                                            @if ($errors->has('tenant.name'))
-                                                <span class="help-block">{{ $errors->first('tenant.name') }}</span>
+                                            @if ($errors->has('tenant.title'))
+                                                <span class="help-block">{{ $errors->first('tenant.title') }}</span>
                                             @endif
                                         </div>
 
@@ -113,7 +129,7 @@
                                         </div>
 
                                         <div class="form-group has-feedback{{ $errors->has('tenant.country_code') ? ' has-error' : '' }}">
-                                            {{ Form::hidden('tenant[country_code]', '') }}
+                                            {{ Form::hidden('tenant[country_code]', '', ['class' => 'skip-validation']) }}
                                             {{ Form::select('tenant[country_code]', [], null, ['class' => 'form-control select2 input-lg', 'placeholder' => trans('cortex/auth::common.select_country'), 'required' => 'required', 'data-allow-clear' => 'true', 'data-width' => '100%']) }}
 
                                             @if ($errors->has('tenant.country_code'))
@@ -140,7 +156,7 @@
                         <div>
                             {{ Html::link(route('frontarea.login'), trans('cortex/auth::common.account_login')) }}
                             {{ trans('cortex/foundation::common.or') }}
-                            {{ Html::link(route('frontarea.passwordreset.request'), trans('cortex/auth::common.password_reset')) }}
+                            {{ Html::link(route('frontarea.passwordreset.request'), trans('cortex/auth::common.passwordreset')) }}
                         </div>
 
                     {{ Form::close() }}

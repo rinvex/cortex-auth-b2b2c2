@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Cortex\Auth\B2B2C2\Http\Requests\Managerarea;
+namespace Cortex\Auth\B2B2C2\Http\Requests\Frontarea;
 
-class RegistrationProcessRequest extends RegistrationRequest
+class MemberRegistrationProcessRequest extends MemberRegistrationRequest
 {
     /**
      * Prepare the data for validation.
@@ -27,9 +27,8 @@ class RegistrationProcessRequest extends RegistrationRequest
      */
     public function rules(): array
     {
-        $rules = app('cortex.auth.manager')->getRules();
+        $rules = app('cortex.auth.member')->getRules();
         $rules['password'] = 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
-        $rules['roles'] = 'nullable|array';
 
         return $rules;
     }

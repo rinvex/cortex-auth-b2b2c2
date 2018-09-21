@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\B2B2C2\Http\Controllers\Adminarea;
 
+use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Member;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
+use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
+use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Foundation\Http\Requests\ImportFormRequest;
+use Cortex\Foundation\DataTables\ImportRecordsDataTable;
+use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\B2B2C2\DataTables\Adminarea\MembersDataTable;
 use Cortex\Auth\B2B2C2\Http\Requests\Adminarea\MemberFormRequest;
-use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\B2B2C2\Http\Requests\Adminarea\MemberAttributesFormRequest;
 
 class MembersController extends AuthorizedController
@@ -32,8 +37,7 @@ class MembersController extends AuthorizedController
     {
         return $membersDataTable->with([
             'id' => 'adminarea-members-index-table',
-            'phrase' => trans('cortex/auth::common.members'),
-        ])->render('cortex/foundation::adminarea.pages.datatable');
+        ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
 
     /**
@@ -49,9 +53,8 @@ class MembersController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $member,
             'tabs' => 'adminarea.members.tabs',
-            'phrase' => trans('cortex/auth::common.members'),
-            'id' => "adminarea-members-{$member->getKey()}-logs-table",
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+            'id' => "adminarea-members-{$member->getRouteKey()}-logs-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -67,9 +70,8 @@ class MembersController extends AuthorizedController
         return $activitiesDataTable->with([
             'resource' => $member,
             'tabs' => 'adminarea.members.tabs',
-            'phrase' => trans('cortex/auth::common.members'),
-            'id' => "adminarea-members-{$member->getKey()}-activities-table",
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+            'id' => "adminarea-members-{$member->getRouteKey()}-activities-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -89,7 +91,7 @@ class MembersController extends AuthorizedController
      * Process the account update form.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Adminarea\MemberAttributesFormRequest $request
-     * @param \Cortex\Auth\Models\Member                                       $member
+     * @param \Cortex\Auth\Models\Member                                              $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -104,6 +106,87 @@ class MembersController extends AuthorizedController
             'back' => true,
             'with' => ['success' => trans('cortex/auth::messages.account.updated_attributes')],
         ]);
+    }
+
+    /**
+     * Import members.
+     *
+     * @param \Cortex\Auth\Models\Member                           $member
+     * @param \Cortex\Foundation\DataTables\ImportRecordsDataTable $importRecordsDataTable
+     *
+     * @return \Illuminate\View\View
+     */
+    public function import(Member $member, ImportRecordsDataTable $importRecordsDataTable)
+    {
+        return $importRecordsDataTable->with([
+            'resource' => $member,
+            'tabs' => 'adminarea.attributes.tabs',
+            'url' => route('adminarea.members.stash'),
+            'id' => "adminarea-attributes-{$member->getRouteKey()}-import-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
+    }
+
+    /**
+     * Stash members.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     *
+     * @return void
+     */
+    public function stash(ImportFormRequest $request, DefaultImporter $importer)
+    {
+        // Handle the import
+        $importer->config['resource'] = $this->resource;
+        $importer->config['name'] = 'username';
+        $importer->handleImport();
+    }
+
+    /**
+     * Hoard members.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function hoard(ImportFormRequest $request)
+    {
+        foreach ((array) $request->get('selected_ids') as $recordId) {
+            $record = app('cortex.foundation.import_record')->find($recordId);
+
+            try {
+                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('rinvex.auth.member')->getFillable()))->toArray();
+
+                tap(app('rinvex.auth.member')->firstOrNew($fillable), function ($instance) use ($record) {
+                    $instance->save() && $record->delete();
+                });
+            } catch (Exception $exception) {
+                $record->notes = $exception->getMessage().(method_exists($exception, 'getMessageBag') ? "\n".json_encode($exception->getMessageBag())."\n\n" : '');
+                $record->status = 'fail';
+                $record->save();
+            }
+        }
+
+        return intend([
+            'back' => true,
+            'with' => ['success' => trans('cortex/foundation::messages.import_complete')],
+        ]);
+    }
+
+    /**
+     * List member import logs.
+     *
+     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function importLogs(ImportLogsDataTable $importLogsDatatable)
+    {
+        return $importLogsDatatable->with([
+            'resource' => trans('cortex/auth::common.member'),
+            'tabs' => 'adminarea.members.tabs',
+            'id' => 'adminarea-members-import-logs-table',
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -149,12 +232,14 @@ class MembersController extends AuthorizedController
                 'emoji' => $country['emoji'],
             ];
         })->values();
+
         $currentUser = $request->user($this->getGuard());
+        $tags = app('rinvex.tags.tag')->pluck('name', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
 
         $roles = $currentUser->can('superadmin')
-            ? app('cortex.auth.role')->all()->pluck('name', 'id')->toArray()
+            ? app('cortex.auth.role')->all()->pluck('title', 'id')->toArray()
             : $currentUser->roles->pluck('name', 'id')->toArray();
 
         $abilities = $currentUser->can('superadmin')
@@ -164,14 +249,14 @@ class MembersController extends AuthorizedController
         asort($roles);
         ksort($abilities);
 
-        return view('cortex/auth::adminarea.pages.member', compact('member', 'abilities', 'roles', 'countries', 'languages', 'genders'));
+        return view('cortex/auth::adminarea.pages.member', compact('member', 'abilities', 'roles', 'countries', 'languages', 'genders', 'tags'));
     }
 
     /**
      * Store new member.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Adminarea\MemberFormRequest $request
-     * @param \Cortex\Auth\Models\Member                             $member
+     * @param \Cortex\Auth\Models\Member                                    $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -184,7 +269,7 @@ class MembersController extends AuthorizedController
      * Update given member.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Adminarea\MemberFormRequest $request
-     * @param \Cortex\Auth\Models\Member                             $member
+     * @param \Cortex\Auth\Models\Member                                    $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -225,14 +310,28 @@ class MembersController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.members.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'member', 'id' => $member->username])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->username])],
         ]);
+    }
+
+    /**
+     * List the members.
+     *
+     * @TODO: to be refactored!
+     *
+     * @return array
+     */
+    public function ajax(): array
+    {
+        return app('cortex.auth.member')->all()->pluck('full_name', 'id')->toArray();
     }
 
     /**
      * Destroy given member.
      *
      * @param \Cortex\Auth\Models\Member $member
+     *
+     * @throws \Exception
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -242,7 +341,7 @@ class MembersController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.members.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'member', 'id' => $member->username])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.member'), 'identifier' => $member->username])],
         ]);
     }
 }

@@ -1,14 +1,14 @@
 {{-- Master Layout --}}
-@extends('cortex/foundation::managerarea.layouts.default')
+@extends('cortex/foundation::frontarea.layouts.default')
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.register') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\RegistrationProcessRequest::class)->selector('#managerarea-registration-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\MemberRegistrationProcessRequest::class)->selector('#frontarea-member-registration-form')->ignore('.skip-validation') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection
@@ -24,12 +24,28 @@
 
                 <section class="auth-form">
 
-                    {{ Form::open(['url' => route('managerarea.register.process'), 'id' => 'managerarea-registration-form', 'role' => 'auth']) }}
+                    {{ Form::open(['url' => route('frontarea.register.member.process'), 'id' => 'frontarea-member-registration-form', 'role' => 'auth']) }}
 
                         <div class="centered"><strong>{{ trans('cortex/auth::common.account_register') }}</strong></div>
 
+                        <div class="form-group has-feedback{{ $errors->has('given_name') ? ' has-error' : '' }}">
+                            {{ Form::text('given_name', old('given_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.given_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+
+                            @if ($errors->has('given_name'))
+                                <span class="help-block">{{ $errors->first('given_name') }}</span>
+                            @endif
+                        </div>
+
+                        <div class="form-group has-feedback{{ $errors->has('family_name') ? ' has-error' : '' }}">
+                            {{ Form::text('family_name', old('family_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.family_name')]) }}
+
+                            @if ($errors->has('family_name'))
+                                <span class="help-block">{{ $errors->first('family_name') }}</span>
+                            @endif
+                        </div>
+
                         <div class="form-group has-feedback{{ $errors->has('username') ? ' has-error' : '' }}">
-                            {{ Form::text('username', old('username'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.username'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                            {{ Form::text('username', old('username'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.username'), 'required' => 'required']) }}
 
                             @if ($errors->has('username'))
                                 <span class="help-block">{{ $errors->first('username') }}</span>
@@ -63,9 +79,9 @@
                         {{ Form::button('<i class="fa fa-user-plus"></i> '.trans('cortex/auth::common.register'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
 
                         <div>
-                            {{ Html::link(route('managerarea.login'), trans('cortex/auth::common.account_login')) }}
+                            {{ Html::link(route('frontarea.login'), trans('cortex/auth::common.account_login')) }}
                             {{ trans('cortex/foundation::common.or') }}
-                            {{ Html::link(route('managerarea.passwordreset.request'), trans('cortex/auth::common.password_reset')) }}
+                            {{ Html::link(route('frontarea.passwordreset.request'), trans('cortex/auth::common.passwordreset')) }}
                         </div>
 
                     {{ Form::close() }}

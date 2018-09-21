@@ -3,12 +3,12 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.password_reset') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\PasswordResetPostProcessRequest::class)->selector('#managerarea-passwordreset-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\PasswordResetPostProcessRequest::class)->selector('#managerarea-passwordreset-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -16,7 +16,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ route('frontarea.home') }}"><b>{{ config('app.name') }}</b></a>
+            <a href="{{ route('frontarea.home') }}"><b>{{ $currentTenant->name }}</b></a>
         </div>
 
         <div class="login-box-body">
@@ -24,8 +24,8 @@
 
             {{ Form::open(['url' => route('managerarea.passwordreset.process'), 'id' => 'managerarea-passwordreset-form', 'role' => 'auth']) }}
 
-                {{ Form::hidden('expiration', old('expiration', $expiration)) }}
-                {{ Form::hidden('token', old('token', $token)) }}
+                {{ Form::hidden('expiration', old('expiration', $expiration), ['class' => 'skip-validation']) }}
+                {{ Form::hidden('token', old('token', $token), ['class' => 'skip-validation']) }}
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                     {{ Form::email('email', old('email', $email), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required', 'readonly' => 'readonly']) }}
@@ -51,7 +51,7 @@
                     @endif
                 </div>
 
-                {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/auth::common.password_reset'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
+                {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/auth::common.passwordreset'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
 
             {{ Form::close() }}
 

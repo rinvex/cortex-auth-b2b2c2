@@ -3,12 +3,12 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.password_reset_request') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\PasswordResetProcessRequest::class)->selector('#frontarea-passwordreset-request-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Frontarea\PasswordResetProcessRequest::class)->selector('#frontarea-passwordreset-request-form')->ignore('.skip-validation') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection
@@ -36,12 +36,12 @@
                             @endif
                         </div>
 
-                        {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/auth::common.password_reset_request'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
+                        {{ Form::button('<i class="fa fa-envelope"></i> '.trans('cortex/auth::common.passwordreset_request'), ['class' => 'btn btn-lg btn-primary btn-block', 'type' => 'submit']) }}
 
                         <div>
                             {{ Html::link(route('frontarea.login'), trans('cortex/auth::common.account_login')) }}
                             {{ trans('cortex/foundation::common.or') }}
-                            {{ Html::link(route('frontarea.register'), trans('cortex/auth::common.account_register')) }}
+                            {{ Html::link(route('frontarea.register.member'), trans('cortex/auth::common.account_register')) }}
                         </div>
 
                     {{ Form::close() }}

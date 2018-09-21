@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\B2B2C2\Http\Controllers\Managerarea;
 
-use Illuminate\Support\Str;
 use Cortex\Auth\Models\Member;
 use Spatie\MediaLibrary\Models\Media;
 use Cortex\Foundation\Http\Controllers\AuthorizedController;
@@ -22,7 +21,7 @@ class MembersMediaController extends AuthorizedController
     public function authorizeResource($model, $parameter = null, array $options = [], $request = null): void
     {
         $middleware = [];
-        $parameter = $parameter ?: Str::snake(class_basename($model));
+        $parameter = $parameter ?: snake_case(class_basename($model));
 
         foreach ($this->mapResourceAbilities() as $method => $ability) {
             $modelName = in_array($method, $this->resourceMethodsWithoutModels()) ? $model : $parameter;
@@ -39,7 +38,7 @@ class MembersMediaController extends AuthorizedController
     /**
      * Destroy given member media.
      *
-     * @param \Cortex\Auth\Models\Member          $member
+     * @param \Cortex\Auth\Models\Member        $member
      * @param \Spatie\MediaLibrary\Models\Media $media
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
@@ -50,7 +49,7 @@ class MembersMediaController extends AuthorizedController
 
         return intend([
             'url' => route('managerarea.members.edit', ['member' => $member]),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'media', 'id' => $media->getKey()])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/foundation::common.media'), 'identifier' => $media->getRouteKey()])],
         ]);
     }
 }

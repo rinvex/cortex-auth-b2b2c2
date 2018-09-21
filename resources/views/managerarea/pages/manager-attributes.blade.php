@@ -3,11 +3,11 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/foundation::common.managerarea') }} » {{ trans('cortex/auth::common.managers') }} » {{ $manager->username }} » {{ trans('cortex/auth::common.attributes') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\ManagerAttributesFormRequest::class)->selector("#managerarea-managers-create-form, #managerarea-managers-{$manager->getKey()}-update-attributes-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\ManagerAttributesFormRequest::class)->selector("#managerarea-managers-create-form, #managerarea-managers-{$manager->getRouteKey()}-update-attributes-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}

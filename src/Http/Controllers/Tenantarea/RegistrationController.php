@@ -31,14 +31,14 @@ class RegistrationController extends AbstractController
      */
     public function form(RegistrationRequest $request)
     {
-        return view('cortex/auth::tenantarea.pages.registration');
+        return view('cortex/auth::tenantarea.pages.member-registration');
     }
 
     /**
      * Process the registration form.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Tenantarea\RegistrationProcessRequest $request
-     * @param \Cortex\Auth\Models\Member                                         $member
+     * @param \Cortex\Auth\Models\Member                                              $member
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -54,7 +54,7 @@ class RegistrationController extends AbstractController
 
         // Send verification if required
         ! config('cortex.auth.emails.verification')
-        || app('rinvex.auth.emailverification')->broker($this->getBroker())->sendVerificationLink(['email' => $data['email']]);
+        || app('rinvex.auth.emailverification')->broker($this->getEmailVerificationBroker())->sendVerificationLink(['email' => $data['email']]);
 
         // Auto-login registered member
         auth()->guard($this->getGuard())->login($member);

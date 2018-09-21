@@ -3,11 +3,11 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/foundation::common.adminarea') }} » {{ trans('cortex/auth::common.members') }} » {{ $member->username }} » {{ trans('cortex/auth::common.attributes') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Adminarea\MemberAttributesFormRequest::class)->selector("#adminarea-members-create-form, #adminarea-members-{$member->getKey()}-update-attributes-form") !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Adminarea\MemberAttributesFormRequest::class)->selector("#adminarea-members-create-form, #adminarea-members-{$member->getRouteKey()}-update-attributes-form")->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}

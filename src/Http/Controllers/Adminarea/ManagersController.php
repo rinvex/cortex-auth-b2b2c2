@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\B2B2C2\Http\Controllers\Adminarea;
 
+use Exception;
 use Illuminate\Http\Request;
 use Cortex\Auth\Models\Manager;
 use Illuminate\Foundation\Http\FormRequest;
 use Cortex\Foundation\DataTables\LogsDataTable;
+use Cortex\Foundation\Importers\DefaultImporter;
 use Cortex\Foundation\DataTables\ActivitiesDataTable;
+use Cortex\Foundation\DataTables\ImportLogsDataTable;
+use Cortex\Foundation\Http\Requests\ImportFormRequest;
+use Cortex\Foundation\DataTables\ImportRecordsDataTable;
+use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\B2B2C2\DataTables\Adminarea\ManagersDataTable;
 use Cortex\Auth\B2B2C2\Http\Requests\Adminarea\ManagerFormRequest;
-use Cortex\Foundation\Http\Controllers\AuthorizedController;
 use Cortex\Auth\B2B2C2\Http\Requests\Adminarea\ManagerAttributesFormRequest;
 
 class ManagersController extends AuthorizedController
@@ -32,8 +37,7 @@ class ManagersController extends AuthorizedController
     {
         return $managersDataTable->with([
             'id' => 'adminarea-managers-index-table',
-            'phrase' => trans('cortex/auth::common.managers'),
-        ])->render('cortex/foundation::adminarea.pages.datatable');
+        ])->render('cortex/foundation::adminarea.pages.datatable-index');
     }
 
     /**
@@ -49,9 +53,8 @@ class ManagersController extends AuthorizedController
         return $logsDataTable->with([
             'resource' => $manager,
             'tabs' => 'adminarea.managers.tabs',
-            'phrase' => trans('cortex/auth::common.managers'),
-            'id' => "adminarea-managers-{$manager->getKey()}-logs-table",
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+            'id' => "adminarea-managers-{$manager->getRouteKey()}-logs-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -67,9 +70,8 @@ class ManagersController extends AuthorizedController
         return $activitiesDataTable->with([
             'resource' => $manager,
             'tabs' => 'adminarea.managers.tabs',
-            'phrase' => trans('cortex/auth::common.managers'),
-            'id' => "adminarea-managers-{$manager->getKey()}-activities-table",
-        ])->render('cortex/foundation::adminarea.pages.datatable-logs');
+            'id' => "adminarea-managers-{$manager->getRouteKey()}-activities-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -89,7 +91,7 @@ class ManagersController extends AuthorizedController
      * Process the account update form.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Adminarea\ManagerAttributesFormRequest $request
-     * @param \Cortex\Auth\Models\Manager                                       $manager
+     * @param \Cortex\Auth\Models\Manager                                              $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -104,6 +106,87 @@ class ManagersController extends AuthorizedController
             'back' => true,
             'with' => ['success' => trans('cortex/auth::messages.account.updated_attributes')],
         ]);
+    }
+
+    /**
+     * Import managers.
+     *
+     * @param \Cortex\Auth\Models\Manager                          $manager
+     * @param \Cortex\Foundation\DataTables\ImportRecordsDataTable $importRecordsDataTable
+     *
+     * @return \Illuminate\View\View
+     */
+    public function import(Manager $manager, ImportRecordsDataTable $importRecordsDataTable)
+    {
+        return $importRecordsDataTable->with([
+            'resource' => $manager,
+            'tabs' => 'adminarea.managers.tabs',
+            'url' => route('adminarea.managers.stash'),
+            'id' => "adminarea-attributes-{$manager->getRouteKey()}-import-table",
+        ])->render('cortex/foundation::adminarea.pages.datatable-dropzone');
+    }
+
+    /**
+     * Stash managers.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     * @param \Cortex\Foundation\Importers\DefaultImporter       $importer
+     *
+     * @return void
+     */
+    public function stash(ImportFormRequest $request, DefaultImporter $importer)
+    {
+        // Handle the import
+        $importer->config['resource'] = $this->resource;
+        $importer->config['name'] = 'username';
+        $importer->handleImport();
+    }
+
+    /**
+     * Hoard managers.
+     *
+     * @param \Cortex\Foundation\Http\Requests\ImportFormRequest $request
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function hoard(ImportFormRequest $request)
+    {
+        foreach ((array) $request->get('selected_ids') as $recordId) {
+            $record = app('cortex.foundation.import_record')->find($recordId);
+
+            try {
+                $fillable = collect($record['data'])->intersectByKeys(array_flip(app('rinvex.auth.manager')->getFillable()))->toArray();
+
+                tap(app('rinvex.auth.manager')->firstOrNew($fillable), function ($instance) use ($record) {
+                    $instance->save() && $record->delete();
+                });
+            } catch (Exception $exception) {
+                $record->notes = $exception->getMessage().(method_exists($exception, 'getMessageBag') ? "\n".json_encode($exception->getMessageBag())."\n\n" : '');
+                $record->status = 'fail';
+                $record->save();
+            }
+        }
+
+        return intend([
+            'back' => true,
+            'with' => ['success' => trans('cortex/foundation::messages.import_complete')],
+        ]);
+    }
+
+    /**
+     * List manager import logs.
+     *
+     * @param \Cortex\Foundation\DataTables\ImportLogsDataTable $importLogsDatatable
+     *
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
+    public function importLogs(ImportLogsDataTable $importLogsDatatable)
+    {
+        return $importLogsDatatable->with([
+            'resource' => trans('cortex/auth::common.manager'),
+            'tabs' => 'adminarea.managers.tabs',
+            'id' => 'adminarea-managers-import-logs-table',
+        ])->render('cortex/foundation::adminarea.pages.datatable-tab');
     }
 
     /**
@@ -149,32 +232,34 @@ class ManagersController extends AuthorizedController
                 'emoji' => $country['emoji'],
             ];
         })->values();
+
         $currentUser = $request->user($this->getGuard());
+        $tags = app('rinvex.tags.tag')->pluck('name', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
 
         $roles = $currentUser->can('superadmin')
-            ? app('cortex.auth.role')->all()->pluck('name', 'id')->toArray()
+            ? app('cortex.auth.role')->all()->pluck('title', 'id')->toArray()
             : $currentUser->roles->pluck('name', 'id')->toArray();
 
         $abilities = $currentUser->can('superadmin')
             ? app('cortex.auth.ability')->all()->groupBy('entity_type')->map->pluck('title', 'id')->toArray()
             : $currentUser->getAbilities()->groupBy('entity_type')->map->pluck('title', 'id')->toArray();
 
-        $tenants = app('rinvex.tenants.tenant')->all()->pluck('title', 'id')->toArray();
+        $tenants = app('rinvex.tenants.tenant')->all()->pluck('name', 'id')->toArray();
 
         asort($roles);
         asort($tenants);
         ksort($abilities);
 
-        return view('cortex/auth::adminarea.pages.manager', compact('manager', 'abilities', 'tenants', 'roles', 'countries', 'languages', 'genders'));
+        return view('cortex/auth::adminarea.pages.manager', compact('manager', 'abilities', 'tenants', 'roles', 'countries', 'languages', 'genders', 'tags'));
     }
 
     /**
      * Store new manager.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Adminarea\ManagerFormRequest $request
-     * @param \Cortex\Auth\Models\Manager                             $manager
+     * @param \Cortex\Auth\Models\Manager                                    $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -187,7 +272,7 @@ class ManagersController extends AuthorizedController
      * Update given manager.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Adminarea\ManagerFormRequest $request
-     * @param \Cortex\Auth\Models\Manager                             $manager
+     * @param \Cortex\Auth\Models\Manager                                    $manager
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -228,7 +313,7 @@ class ManagersController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.managers.index'),
-            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => 'manager', 'id' => $manager->username])],
+            'with' => ['success' => trans('cortex/foundation::messages.resource_saved', ['resource' => trans('cortex/auth::common.manager'), 'identifier' => $manager->username])],
         ]);
     }
 
@@ -236,6 +321,8 @@ class ManagersController extends AuthorizedController
      * Destroy given manager.
      *
      * @param \Cortex\Auth\Models\Manager $manager
+     *
+     * @throws \Exception
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -245,7 +332,7 @@ class ManagersController extends AuthorizedController
 
         return intend([
             'url' => route('adminarea.managers.index'),
-            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => 'manager', 'id' => $manager->username])],
+            'with' => ['warning' => trans('cortex/foundation::messages.resource_deleted', ['resource' => trans('cortex/auth::common.manager'), 'identifier' => $manager->username])],
         ]);
     }
 }

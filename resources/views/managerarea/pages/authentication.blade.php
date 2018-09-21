@@ -3,12 +3,12 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.login') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\AuthenticationRequest::class)->selector('#managerarea-login-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\AuthenticationRequest::class)->selector('#managerarea-login-form')->ignore('.skip-validation') !!}
 @endpush
 
 {{-- Main Content --}}
@@ -16,7 +16,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ route('frontarea.home') }}"><b>{{ config('app.name') }}</b></a>
+            <a href="{{ route('frontarea.home') }}"><b>{{ $currentTenant->name }}</b></a>
         </div>
 
         <div class="login-box-body">
@@ -44,7 +44,7 @@
 
             {{ Form::close() }}
 
-            {{ Html::link(route('managerarea.passwordreset.request'), trans('cortex/auth::common.password_reset')) }}
+            {{ Html::link(route('managerarea.passwordreset.request'), trans('cortex/auth::common.passwordreset')) }}
 
         </div>
 

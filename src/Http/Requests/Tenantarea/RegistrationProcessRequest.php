@@ -29,7 +29,6 @@ class RegistrationProcessRequest extends RegistrationRequest
     {
         $rules = app('cortex.auth.member')->getRules();
         $rules['password'] = 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
-        $rules['roles'] = 'nullable|array';
 
         return $rules;
     }

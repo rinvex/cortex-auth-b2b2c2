@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\B2B2C2\Http\Requests\Adminarea;
 
+use Rinvex\Support\Traits\Escaper;
 use Illuminate\Foundation\Http\FormRequest;
 
 class MemberFormRequest extends FormRequest
 {
+    use Escaper;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -49,21 +52,25 @@ class MemberFormRequest extends FormRequest
         }
 
         // Set abilities
-        if ($data['abilities'] && $this->user($this->route('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
-            $abilities = array_map('intval', $this->get('abilities', []));
-            $data['abilities'] = $this->user($this->route('guard'))->can('superadmin') ? $abilities
-                : $this->user($this->route('guard'))->getAbilities()->pluck('id')->intersect($abilities)->toArray();
-        } else {
-            unset($data['abilities']);
+        if (! empty($data['abilities'])) {
+            if ($this->user($this->route('guard'))->can('grant', \Cortex\Auth\Models\Ability::class)) {
+                $abilities = array_map('intval', $this->get('abilities', []));
+                $data['abilities'] = $this->user($this->route('guard'))->can('superadmin') ? $abilities
+                    : $this->user($this->route('guard'))->getAbilities()->pluck('id')->intersect($abilities)->toArray();
+            } else {
+                unset($data['abilities']);
+            }
         }
 
         // Set roles
-        if ($data['roles'] && $this->user($this->route('guard'))->can('assign', \Cortex\Auth\Models\Role::class)) {
-            $roles = array_map('intval', $this->get('roles', []));
-            $data['roles'] = $this->user($this->route('guard'))->can('superadmin') ? $roles
-                : $this->user($this->route('guard'))->roles->pluck('id')->intersect($roles)->toArray();
-        } else {
-            unset($data['roles']);
+        if (! empty($data['roles'])) {
+            if ($data['roles'] && $this->user($this->route('guard'))->can('assign', \Cortex\Auth\Models\Role::class)) {
+                $roles = array_map('intval', $this->get('roles', []));
+                $data['roles'] = $this->user($this->route('guard'))->can('superadmin') ? $roles
+                    : $this->user($this->route('guard'))->roles->pluck('id')->intersect($roles)->toArray();
+            } else {
+                unset($data['roles']);
+            }
         }
 
         if ($twoFactor && (isset($data['phone_verified_at']) || $country !== $member->country_code)) {
@@ -72,6 +79,19 @@ class MemberFormRequest extends FormRequest
         }
 
         $this->replace($data);
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param \Illuminate\Validation\Validator $validator
+     *
+     * @return void
+     */
+    public function withValidator($validator): void
+    {
+        // Sanitize input data before submission
+        $this->replace($this->escape($this->all()));
     }
 
     /**

@@ -3,12 +3,12 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.register') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Tenantarea\RegistrationProcessRequest::class)->selector('#tenantarea-registration-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Tenantarea\RegistrationProcessRequest::class)->selector('#tenantarea-registration-form')->ignore('.skip-validation') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection
@@ -65,7 +65,7 @@
                         <div>
                             {{ Html::link(route('tenantarea.login'), trans('cortex/auth::common.account_login')) }}
                             {{ trans('cortex/foundation::common.or') }}
-                            {{ Html::link(route('tenantarea.passwordreset.request'), trans('cortex/auth::common.password_reset')) }}
+                            {{ Html::link(route('tenantarea.passwordreset.request'), trans('cortex/auth::common.passwordreset')) }}
                         </div>
 
                     {{ Form::close() }}

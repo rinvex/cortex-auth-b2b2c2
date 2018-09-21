@@ -35,13 +35,14 @@ class SocialAuthenticationController extends AbstractController
     public function handleProviderCallback(Request $request, string $provider)
     {
         $providerUser = Socialite::driver($provider)->user();
+        $fullName = explode(' ', $providerUser->name);
 
         $attributes = [
             'id' => $providerUser->id,
             'email' => $providerUser->email,
             'username' => $providerUser->nickname ?? trim(mb_strstr($providerUser->email, '@', true)),
-            'first_name' => str_before($providerUser->name, ' '),
-            'last_name' => str_after($providerUser->name, ' '),
+            'given_name' => current($fullName),
+            'family_name' => end($fullName),
         ];
 
         switch ($provider) {
@@ -70,6 +71,7 @@ class SocialAuthenticationController extends AbstractController
             $localUser = $this->createLocalUser($provider, $attributes);
         }
 
+        // Auto-login registered member
         auth()->guard($this->getGuard())->login($localUser, true);
 
         return intend([

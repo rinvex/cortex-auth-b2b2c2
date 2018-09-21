@@ -16,14 +16,18 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Load resources
-        require __DIR__.'/../../routes/breadcrumbs.php';
-        $this->loadRoutesFrom(__DIR__.'/../../routes/http.adminarea.php');
-        $this->loadRoutesFrom(__DIR__.'/../../routes/http.frontarea.php');
-        $this->loadRoutesFrom(__DIR__.'/../../routes/http.tenantarea.php');
-        $this->loadRoutesFrom(__DIR__.'/../../routes/http.managerarea.php');
+        require __DIR__.'/../../routes/breadcrumbs/adminarea.php';
+        require __DIR__.'/../../routes/breadcrumbs/frontarea.php';
+        require __DIR__.'/../../routes/breadcrumbs/tenantarea.php';
+        require __DIR__.'/../../routes/breadcrumbs/managerarea.php';
+        $this->loadRoutesFrom(__DIR__.'/../../routes/web/adminarea.php');
+        $this->loadRoutesFrom(__DIR__.'/../../routes/web/frontarea.php');
+        $this->loadRoutesFrom(__DIR__.'/../../routes/web/tenantarea.php');
+        $this->loadRoutesFrom(__DIR__.'/../../routes/web/managerarea.php');
         $this->loadViewsFrom(__DIR__.'/../../resources/views', 'cortex/auth');
-        $this->app->afterResolving('blade.compiler', function () {
-            require __DIR__.'/../../routes/menus.php';
+        $this->app->runningInConsole() || $this->app->afterResolving('blade.compiler', function () {
+            require __DIR__.'/../../routes/menus/managerarea.php';
+            require __DIR__.'/../../routes/menus/adminarea.php';
         });
 
         // Publish Resources

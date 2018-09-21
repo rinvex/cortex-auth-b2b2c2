@@ -3,12 +3,12 @@
 
 {{-- Page Title --}}
 @section('title')
-    {{ config('app.name') }} » {{ trans('cortex/auth::common.verification_phone_request') }}
+    {{ extract_title(Breadcrumbs::render()) }}
 @endsection
 
 {{-- Scripts --}}
 @push('inline-scripts')
-    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Tenantarea\PhoneVerificationSendRequest::class)->selector('#tenantarea-verification-phone-request-form') !!}
+    {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Tenantarea\PhoneVerificationSendRequest::class)->selector('#tenantarea-verification-phone-request-form')->ignore('.skip-validation') !!}
 @endpush
 
 @section('body-attributes')class="auth-page"@endsection
@@ -31,10 +31,9 @@
                         <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                             <div class="input-group input-group-lg">
                                 @if (auth()->guard(request()->route('guard'))->user())
-                                    {{ Form::number('phone', old('phone', $currentUser->phone), ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone'), 'required' => 'required', 'autofocus' => 'autofocus', 'disabled' => 'disabled']) }}
-                                    {{ Form::hidden('phone', old('phone', $currentUser->phone)) }}
+                                    {{ Form::tel('phone_input', old('phone', $currentUser->phone), ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone'), 'required' => 'required', 'autofocus' => 'autofocus', 'disabled' => 'disabled']) }}
                                 @else
-                                    {{ Form::number('phone', old('phone'), ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                                    {{ Form::tel('phone_input', old('phone'), ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
                                 @endif
 
                                 <div class="input-group-btn" data-toggle="buttons">
@@ -47,6 +46,7 @@
                                 </div>
                             </div>
 
+                            <span class="help-block hide">{{ trans('cortex/foundation::messages.invalid_phone') }}</span>
                             @if ($errors->has('phone'))
                                 <span class="help-block">{{ $errors->first('phone') }}</span>
                             @endif
