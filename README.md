@@ -1,6 +1,6 @@
 # Cortex Auth B2B2C2
 
-**Cortex Auth B2B2C2** (Business to Business, Business to Customer, Business to Business to Customer) is a complementary module for cortex/auth which is frontend layer for the powerful authentication, authorization and verification package rinvex/auth on top of Laravel.
+**Cortex Auth B2B2C2** (Business to Business, Business to Customer, Business to Business to Customer) is a complementary module for cortex/auth which is frontend layer for the powerful authentication, authorization and verification package rinvex/laravel-auth on top of Laravel.
 
 [![Packagist](https://img.shields.io/packagist/v/cortex/auth.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/cortex/auth)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/rinvex/cortex-auth.svg?label=Scrutinizer&style=flat-square)](https://scrutinizer-ci.com/g/rinvex/cortex-auth/)
