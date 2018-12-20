@@ -34,21 +34,8 @@ class ManagerFormRequest extends FormRequest
         $country = $data['country_code'] ?? null;
         $twoFactor = $manager->getTwoFactor();
 
-        $data['email_verified'] = $this->get('email_verified', false);
-        $data['phone_verified'] = $this->get('phone_verified', false);
-
         if ($manager->exists && empty($data['password'])) {
             unset($data['password'], $data['password_confirmation']);
-        }
-
-        // Update email verification date
-        if ($data['email_verified'] && $manager->email_verified !== $data['email_verified']) {
-            $data['email_verified_at'] = now();
-        }
-
-        // Update phone verification date
-        if ($data['phone_verified'] && $manager->phone_verified !== $data['phone_verified']) {
-            $data['phone_verified_at'] = now();
         }
 
         // Cast tenants

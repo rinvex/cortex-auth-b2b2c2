@@ -128,14 +128,7 @@
                                     {{-- Phone --}}
                                     <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                         {{ Form::label('phone', trans('cortex/auth::common.phone'), ['class' => 'control-label']) }}
-                                        {{ Form::label('phone_verified', trans('cortex/auth::common.verified'), ['class' => 'control-label pull-right']) }}
-
-                                        <div class="input-group">
-                                            {{ Form::tel('phone_input', $manager->phone, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone')]) }}
-                                            <span class="input-group-addon">
-                                                {{ Form::checkbox('phone_verified') }}
-                                            </span>
-                                        </div>
+                                        {{ Form::tel('phone_input', $manager->phone, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone')]) }}
 
                                         <span class="help-block hide">{{ trans('cortex/foundation::messages.invalid_phone') }}</span>
                                         @if ($errors->has('phone'))
