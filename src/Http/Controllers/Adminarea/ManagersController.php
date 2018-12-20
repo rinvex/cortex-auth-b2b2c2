@@ -237,20 +237,12 @@ class ManagersController extends AuthorizedController
         $tags = app('rinvex.tags.tag')->pluck('name', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
-
-        $roles = $currentUser->can('superadmin')
-            ? app('cortex.auth.role')->all()->pluck('title', 'id')->toArray()
-            : $currentUser->roles->pluck('name', 'id')->toArray();
-
-        $abilities = $currentUser->can('superadmin')
-            ? app('cortex.auth.ability')->all()->groupBy('entity_type')->map->pluck('title', 'id')->toArray()
-            : $currentUser->getAbilities()->groupBy('entity_type')->map->pluck('title', 'id')->toArray();
+        $abilities = get_area_abilities($currentUser);
+        $roles = get_area_roles($currentUser);
 
         $tenants = app('rinvex.tenants.tenant')->all()->pluck('name', 'id')->toArray();
 
-        asort($roles);
         asort($tenants);
-        ksort($abilities);
 
         return view('cortex/auth::adminarea.pages.manager', compact('manager', 'abilities', 'tenants', 'roles', 'countries', 'languages', 'genders', 'tags'));
     }

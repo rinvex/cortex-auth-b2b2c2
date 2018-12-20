@@ -173,12 +173,7 @@ class RolesController extends AuthorizedController
     protected function form(Request $request, Role $role)
     {
         $currentUser = $request->user($this->getGuard());
-
-        $abilities = $currentUser->can('superadmin')
-            ? app('cortex.auth.ability')->all()->groupBy('entity_type')->map->pluck('title', 'id')->toArray()
-            : $request->user($this->getGuard())->getAbilities()->groupBy('entity_type')->map->pluck('title', 'id')->toArray();
-
-        ksort($abilities);
+        $abilities = get_area_abilities($currentUser);
 
         return view('cortex/auth::managerarea.pages.role', compact('role', 'abilities'));
     }
