@@ -10,7 +10,7 @@
     {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Adminarea\ManagerFormRequest::class)->selector("#adminarea-managers-create-form, #adminarea-managers-{$manager->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
 
     <script>
-        window.countries = {!! $countries !!};
+        window.countries = @json($countries);
         window.selectedCountry = '{{ old('country_code', $manager->country_code) }}';
     </script>
 @endpush
