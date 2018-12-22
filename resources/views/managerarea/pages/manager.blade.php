@@ -10,7 +10,7 @@
     {!! JsValidator::formRequest(Cortex\Auth\B2B2C2\Http\Requests\Managerarea\ManagerFormRequest::class)->selector("#managerarea-managers-create-form, #managerarea-managers-{$manager->getRouteKey()}-update-form")->ignore('.skip-validation') !!}
 
     <script>
-        window.countries = {!! $countries !!};
+        window.countries = @json($countries);
         window.selectedCountry = '{{ old('country_code', $manager->country_code) }}';
     </script>
 @endpush
@@ -107,14 +107,7 @@
                                     {{-- Email --}}
                                     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                         {{ Form::label('email', trans('cortex/auth::common.email'), ['class' => 'control-label']) }}
-                                        {{ Form::label('email_verified', trans('cortex/auth::common.verified'), ['class' => 'control-label pull-right']) }}
-
-                                        <div class="input-group">
-                                            {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required']) }}
-                                            <span class="input-group-addon">
-                                                {{ Form::checkbox('email_verified') }}
-                                            </span>
-                                        </div>
+                                        {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required']) }}
 
                                         @if ($errors->has('email'))
                                             <span class="help-block">{{ $errors->first('email') }}</span>
@@ -128,14 +121,7 @@
                                     {{-- Phone --}}
                                     <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                                         {{ Form::label('phone', trans('cortex/auth::common.phone'), ['class' => 'control-label']) }}
-                                        {{ Form::label('phone_verified', trans('cortex/auth::common.verified'), ['class' => 'control-label pull-right']) }}
-
-                                        <div class="input-group">
-                                            {{ Form::tel('phone_input', $manager->phone, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone')]) }}
-                                            <span class="input-group-addon">
-                                                {{ Form::checkbox('phone_verified') }}
-                                            </span>
-                                        </div>
+                                        {{ Form::tel('phone_input', $manager->phone, ['class' => 'form-control', 'placeholder' => trans('cortex/auth::common.phone')]) }}
 
                                         <span class="help-block hide">{{ trans('cortex/foundation::messages.invalid_phone') }}</span>
                                         @if ($errors->has('phone'))

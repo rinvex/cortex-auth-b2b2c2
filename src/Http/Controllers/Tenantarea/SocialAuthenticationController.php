@@ -108,7 +108,6 @@ class SocialAuthenticationController extends AbstractController
         $localUser = app('cortex.auth.member');
 
         $attributes['password'] = str_random();
-        $attributes['email_verified'] = true;
         $attributes['email_verified_at'] = now();
         $attributes['is_active'] = ! config('cortex.auth.registration.moderated');
 
