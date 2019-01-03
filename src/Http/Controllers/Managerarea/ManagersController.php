@@ -210,7 +210,7 @@ class ManagersController extends AuthorizedController
      *
      * @return \Illuminate\View\View
      */
-    public function edit(Request $request, Manager $manager)
+    public function edit(ManagerFormRequest $request, Manager $manager)
     {
         return $this->form($request, $manager);
     }
