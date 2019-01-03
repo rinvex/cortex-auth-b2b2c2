@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Cortex\Auth\B2B2C2\Http\Requests\Managerarea;
 
-use Cortex\Foundation\Exceptions\GenericException;
 use Rinvex\Support\Traits\Escaper;
 use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class ManagerFormRequest extends FormRequest
 {
