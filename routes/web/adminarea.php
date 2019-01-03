@@ -17,10 +17,10 @@ Route::domain(domain())->group(function () {
                      Route::post('import')->name('stash')->uses('MembersController@stash');
                      Route::post('hoard')->name('hoard')->uses('MembersController@hoard');
                      Route::get('import/logs')->name('import.logs')->uses('MembersController@importLogs');
-                     Route::get('create')->name('create')->uses('MembersController@create');
+                     Route::get('create')->name('create')->uses('MembersController@form');
                      Route::post('create')->name('store')->uses('MembersController@store');
                      Route::get('{member}')->name('show')->uses('MembersController@show');
-                     Route::get('{member}/edit')->name('edit')->uses('MembersController@edit');
+                     Route::get('{member}/edit')->name('edit')->uses('MembersController@form');
                      Route::put('{member}/edit')->name('update')->uses('MembersController@update');
                      Route::get('{member}/logs')->name('logs')->uses('MembersController@logs');
                      Route::get('{member}/activities')->name('activities')->uses('MembersController@activities');
@@ -37,10 +37,10 @@ Route::domain(domain())->group(function () {
                      Route::post('import')->name('stash')->uses('ManagersController@stash');
                      Route::post('hoard')->name('hoard')->uses('ManagersController@hoard');
                      Route::get('import/logs')->name('import.logs')->uses('ManagersController@importLogs');
-                     Route::get('create')->name('create')->uses('ManagersController@create');
+                     Route::get('create')->name('create')->uses('ManagersController@form');
                      Route::post('create')->name('store')->uses('ManagersController@store');
                      Route::get('{manager}')->name('show')->uses('ManagersController@show');
-                     Route::get('{manager}/edit')->name('edit')->uses('ManagersController@edit');
+                     Route::get('{manager}/edit')->name('edit')->uses('ManagersController@form');
                      Route::put('{manager}/edit')->name('update')->uses('ManagersController@update');
                      Route::get('{manager}/logs')->name('logs')->uses('ManagersController@logs');
                      Route::get('{manager}/activities')->name('activities')->uses('ManagersController@activities');

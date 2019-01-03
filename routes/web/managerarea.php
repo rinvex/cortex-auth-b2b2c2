@@ -61,6 +61,9 @@ Route::domain('{subdomain}.'.domain())->group(function () {
                      Route::get('settings')->name('settings')->uses('AccountSettingsController@edit');
                      Route::post('settings')->name('settings.update')->uses('AccountSettingsController@update');
 
+                     // Account Media Routes
+                     Route::delete('{member}/media/{media}')->name('media.destroy')->uses('AccountMediaController@destroy');
+
                      // Account Password Routes
                      Route::get('password')->name('password')->uses('AccountPasswordController@edit');
                      Route::post('password')->name('password.update')->uses('AccountPasswordController@update');
@@ -122,10 +125,10 @@ Route::domain('{subdomain}.'.domain())->group(function () {
                      Route::post('import')->name('stash')->uses('MembersController@stash');
                      Route::post('hoard')->name('hoard')->uses('MembersController@hoard');
                      Route::get('import/logs')->name('import.logs')->uses('MembersController@importLogs');
-                     Route::get('create')->name('create')->uses('MembersController@create');
+                     Route::get('create')->name('create')->uses('MembersController@form');
                      Route::post('create')->name('store')->uses('MembersController@store');
                      Route::get('{member}')->name('show')->uses('MembersController@show');
-                     Route::get('{member}/edit')->name('edit')->uses('MembersController@edit');
+                     Route::get('{member}/edit')->name('edit')->uses('MembersController@form');
                      Route::put('{member}/edit')->name('update')->uses('MembersController@update');
                      Route::get('{member}/logs')->name('logs')->uses('MembersController@logs');
                      Route::get('{member}/activities')->name('activities')->uses('MembersController@activities');

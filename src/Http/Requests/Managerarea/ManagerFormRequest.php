@@ -6,6 +6,7 @@ namespace Cortex\Auth\B2B2C2\Http\Requests\Managerarea;
 
 use Rinvex\Support\Traits\Escaper;
 use Illuminate\Foundation\Http\FormRequest;
+use Cortex\Foundation\Exceptions\GenericException;
 
 class ManagerFormRequest extends FormRequest
 {
@@ -14,10 +15,20 @@ class ManagerFormRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      *
+     * @throws \Cortex\Foundation\Exceptions\GenericException
+     *
      * @return bool
      */
     public function authorize(): bool
     {
+        // @TODO: decide if we will use supermanager ability as a superiority
+        //        or will keep using isOwner functionality as ownership!
+        //$currentUser = $this->user($this->route('guard'));
+        //
+        //if (! $currentUser->can('supermanager') && $currentUser !== $this->route('manager')) {
+        //    throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('managerarea.managers.index'));
+        //}
+
         return true;
     }
 
@@ -69,19 +80,6 @@ class ManagerFormRequest extends FormRequest
     }
 
     /**
-     * Configure the validator instance.
-     *
-     * @param \Illuminate\Validation\Validator $validator
-     *
-     * @return void
-     */
-    public function withValidator($validator): void
-    {
-        // Sanitize input data before submission
-        $this->replace($this->escape($this->all()));
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -98,6 +96,6 @@ class ManagerFormRequest extends FormRequest
             ? 'confirmed|min:'.config('cortex.auth.password_min_chars')
             : 'required|confirmed|min:'.config('cortex.auth.password_min_chars');
 
-        return $rules;
+        return $this->isMethod('POST') ? $rules : [];
     }
 }
