@@ -81,6 +81,7 @@
                             <div class="row">
 
                                 @can('grant', \Cortex\Auth\Models\Ability::class)
+
                                     <div class="col-md-12">
 
                                         {{-- Abilities --}}
@@ -95,6 +96,7 @@
                                         </div>
 
                                     </div>
+
                                 @endcan
 
                             </div>

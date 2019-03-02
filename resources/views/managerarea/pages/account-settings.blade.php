@@ -29,7 +29,7 @@
                 <div class="col-md-9">
                     <div class="profile-content">
 
-                        {{ Form::model($currentUser, ['url' => route('managerarea.account.settings.update'), 'id' => 'managerarea-account-settings-form']) }}
+                        {{ Form::model($currentUser, ['url' => route('managerarea.account.settings.update'), 'id' => 'managerarea-account-settings-form', 'files' => true]) }}
 
                             <div class="row">
 
