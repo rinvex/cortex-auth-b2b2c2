@@ -207,12 +207,11 @@ class MembersController extends AuthorizedController
             ];
         })->values();
 
-        $currentUser = $request->user($this->getGuard());
         $tags = app('rinvex.tags.tag')->pluck('name', 'id');
         $languages = collect(languages())->pluck('name', 'iso_639_1');
         $genders = ['male' => trans('cortex/auth::common.male'), 'female' => trans('cortex/auth::common.female')];
-        $abilities = get_area_abilities($currentUser);
-        $roles = get_area_roles($currentUser);
+        $abilities = $request->user($this->getGuard())->getManagedAbilities();
+        $roles = $request->user($this->getGuard())->getManagedRoles();
 
         return view('cortex/auth::managerarea.pages.member', compact('member', 'abilities', 'roles', 'countries', 'languages', 'genders', 'tags'));
     }

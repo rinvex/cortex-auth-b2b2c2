@@ -26,7 +26,7 @@
             <div class="col-md-9">
                 <div class="profile-content">
 
-                    {{ Form::model($currentUser, ['url' => route('tenantarea.account.settings.update'), 'id' => 'tenantarea-account-settings-form']) }}
+                    {{ Form::model($currentUser, ['url' => route('tenantarea.account.settings.update'), 'id' => 'tenantarea-account-settings-form', 'files' => true]) }}
 
                         <div class="row">
 

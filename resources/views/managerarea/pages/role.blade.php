@@ -13,9 +13,7 @@
 {{-- Main Content --}}
 @section('content')
 
-    @if($role->exists)
-        @include('cortex/foundation::common.partials.modal', ['id' => 'delete-confirmation'])
-    @endif
+    @includeWhen($role->exists, 'cortex/foundation::common.partials.modal', ['id' => 'delete-confirmation'])
 
     <div class="content-wrapper">
         <section class="content-header">
@@ -83,6 +81,7 @@
                             <div class="row">
 
                                 @can('grant', \Cortex\Auth\Models\Ability::class)
+
                                     <div class="col-md-12">
 
                                         {{-- Abilities --}}
@@ -97,6 +96,7 @@
                                         </div>
 
                                     </div>
+
                                 @endcan
 
                             </div>

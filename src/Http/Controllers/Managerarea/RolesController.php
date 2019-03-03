@@ -152,8 +152,8 @@ class RolesController extends AuthorizedController
     /**
      * Edit given role.
      *
-     * @param \Cortex\Auth\Http\Requests\Managerarea\RoleFormRequest $request
-     * @param \Cortex\Auth\Models\Role                               $role
+     * @param \Cortex\Auth\B2B2C2\Http\Requests\Managerarea\RoleFormRequest $request
+     * @param \Cortex\Auth\Models\Role                                      $role
      *
      * @return \Illuminate\View\View
      */
@@ -172,8 +172,7 @@ class RolesController extends AuthorizedController
      */
     protected function form(Request $request, Role $role)
     {
-        $currentUser = $request->user($this->getGuard());
-        $abilities = get_area_abilities($currentUser);
+        $abilities = $request->user($this->getGuard())->getManagedAbilities();
 
         return view('cortex/auth::managerarea.pages.role', compact('role', 'abilities'));
     }

@@ -26,7 +26,7 @@
             <div class="col-md-9">
                 <div class="profile-content">
 
-                    {{ Form::model($currentUser, ['url' => route('frontarea.account.settings.update'), 'id' => 'frontarea-account-settings-form']) }}
+                    {{ Form::model($currentUser, ['url' => route('frontarea.account.settings.update'), 'id' => 'frontarea-account-settings-form', 'files' => true]) }}
 
                         <div class="row">
 

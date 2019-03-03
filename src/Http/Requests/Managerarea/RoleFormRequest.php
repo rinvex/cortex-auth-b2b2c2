@@ -23,7 +23,7 @@ class RoleFormRequest extends FormRequest
     {
         $currentUser = $this->user($this->route('guard'));
 
-        if (! $currentUser->can('superadmin') && ! config('rinvex.tenants.active')->isOwner($currentUser) && ! $currentUser->roles->contains($this->route('role'))) {
+        if (! $currentUser->isA('supermanager') && ! $currentUser->roles->contains($this->route('role'))) {
             throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('managerarea.roles.index'));
         }
 
