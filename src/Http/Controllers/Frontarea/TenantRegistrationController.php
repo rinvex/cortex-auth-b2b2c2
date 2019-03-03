@@ -37,35 +37,33 @@ class TenantRegistrationController extends RegistrationController
      * Process the registration form.
      *
      * @param \Cortex\Auth\B2B2C2\Http\Requests\Frontarea\TenantRegistrationProcessRequest $request
-     * @param \Cortex\Auth\Models\Manager                                                  $owner
+     * @param \Cortex\Auth\Models\Manager                                                  $manager
      * @param \Cortex\Tenants\Models\Tenant                                                $tenant
      *
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function register(TenantRegistrationProcessRequest $request, Manager $owner, Tenant $tenant)
+    public function register(TenantRegistrationProcessRequest $request, Manager $manager, Tenant $tenant)
     {
         // Prepare registration data
-        $ownerData = $request->validated()['owner'];
+        $managerData = $request->validated()['manager'];
         $tenantData = $request->validated()['tenant'];
 
-        $owner->fill($ownerData)->save();
+        $manager->fill($managerData)->save();
 
         // Save tenant
-        $tenantData['owner_id'] = $owner->getKey();
-        $tenantData['owner_type'] = $owner->getMorphClass();
         $tenant->fill($tenantData)->save();
-        $owner->attachTenants($tenant);
-        $owner->assign('owner');
+        $manager->attachTenants($tenant);
+        $manager->assign('supermanager');
 
         // Fire the register success event
-        event(new Registered($owner));
+        event(new Registered($manager));
 
         // Send verification if required
         ! config('cortex.auth.emails.verification')
-        || app('rinvex.auth.emailverification')->broker($this->getEmailVerificationBroker())->sendVerificationLink(['email' => $owner->email]);
+        || app('rinvex.auth.emailverification')->broker($this->getEmailVerificationBroker())->sendVerificationLink(['email' => $manager->email]);
 
-        // Auto-login registered owner
-        auth()->guard('managers')->login($owner);
+        // Auto-login registered manager
+        auth()->guard('managers')->login($manager);
 
         // Registration completed successfully
         return intend([

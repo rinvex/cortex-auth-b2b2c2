@@ -37,57 +37,57 @@
                             <div class="panel wizard-step">
                                 <div>
                                     <h4 class="wizard-step-title">
-                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{ trans('cortex/auth::common.owner_account') }}</a>
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">{{ trans('cortex/auth::common.manager_account') }}</a>
                                     </h4>
                                 </div>
                                 <div id="collapseOne" class="collapse in">
                                     <div class="wizard-step-body">
 
-                                        <div class="form-group has-feedback{{ $errors->has('owner.given_name') ? ' has-error' : '' }}">
-                                            {{ Form::text('owner[given_name]', old('owner.given_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.given_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
+                                        <div class="form-group has-feedback{{ $errors->has('manager.given_name') ? ' has-error' : '' }}">
+                                            {{ Form::text('manager[given_name]', old('manager.given_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.given_name'), 'required' => 'required', 'autofocus' => 'autofocus']) }}
 
-                                            @if ($errors->has('owner.given_name'))
-                                                <span class="help-block">{{ $errors->first('owner.given_name') }}</span>
+                                            @if ($errors->has('manager.given_name'))
+                                                <span class="help-block">{{ $errors->first('manager.given_name') }}</span>
                                             @endif
                                         </div>
 
-                                        <div class="form-group has-feedback{{ $errors->has('owner.family_name') ? ' has-error' : '' }}">
-                                            {{ Form::text('owner[family_name]', old('owner.family_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.family_name')]) }}
+                                        <div class="form-group has-feedback{{ $errors->has('manager.family_name') ? ' has-error' : '' }}">
+                                            {{ Form::text('manager[family_name]', old('manager.family_name'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.family_name')]) }}
 
-                                            @if ($errors->has('owner.family_name'))
-                                                <span class="help-block">{{ $errors->first('owner.family_name') }}</span>
+                                            @if ($errors->has('manager.family_name'))
+                                                <span class="help-block">{{ $errors->first('manager.family_name') }}</span>
                                             @endif
                                         </div>
 
-                                        <div class="form-group has-feedback{{ $errors->has('owner.username') ? ' has-error' : '' }}">
-                                            {{ Form::text('owner[username]', old('owner.username'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.username'), 'required' => 'required']) }}
+                                        <div class="form-group has-feedback{{ $errors->has('manager.username') ? ' has-error' : '' }}">
+                                            {{ Form::text('manager[username]', old('manager.username'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.username'), 'required' => 'required']) }}
 
-                                            @if ($errors->has('owner.username'))
-                                                <span class="help-block">{{ $errors->first('owner.username') }}</span>
+                                            @if ($errors->has('manager.username'))
+                                                <span class="help-block">{{ $errors->first('manager.username') }}</span>
                                             @endif
                                         </div>
 
-                                        <div class="form-group has-feedback{{ $errors->has('owner.email') ? ' has-error' : '' }}">
-                                            {{ Form::email('owner[email]', old('owner.email'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required']) }}
+                                        <div class="form-group has-feedback{{ $errors->has('manager.email') ? ' has-error' : '' }}">
+                                            {{ Form::email('manager[email]', old('manager.email'), ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.email'), 'required' => 'required']) }}
 
-                                            @if ($errors->has('owner.email'))
-                                                <span class="help-block">{{ $errors->first('owner.email') }}</span>
+                                            @if ($errors->has('manager.email'))
+                                                <span class="help-block">{{ $errors->first('manager.email') }}</span>
                                             @endif
                                         </div>
 
-                                        <div class="form-group has-feedback{{ $errors->has('owner.password') ? ' has-error' : '' }}">
-                                            {{ Form::password('owner[password]', ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.password'), 'required' => 'required']) }}
+                                        <div class="form-group has-feedback{{ $errors->has('manager.password') ? ' has-error' : '' }}">
+                                            {{ Form::password('manager[password]', ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.password'), 'required' => 'required']) }}
 
-                                            @if ($errors->has('owner.password'))
-                                                <span class="help-block">{{ $errors->first('owner.password') }}</span>
+                                            @if ($errors->has('manager.password'))
+                                                <span class="help-block">{{ $errors->first('manager.password') }}</span>
                                             @endif
                                         </div>
 
-                                        <div class="form-group has-feedback{{ $errors->has('owner.password_confirmation') ? ' has-error' : '' }}">
-                                            {{ Form::password('owner[password_confirmation]', ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.password_confirmation'), 'required' => 'required']) }}
+                                        <div class="form-group has-feedback{{ $errors->has('manager.password_confirmation') ? ' has-error' : '' }}">
+                                            {{ Form::password('manager[password_confirmation]', ['class' => 'form-control input-lg', 'placeholder' => trans('cortex/auth::common.password_confirmation'), 'required' => 'required']) }}
 
-                                            @if ($errors->has('owner.password_confirmation'))
-                                                <span class="help-block">{{ $errors->first('owner.password_confirmation') }}</span>
+                                            @if ($errors->has('manager.password_confirmation'))
+                                                <span class="help-block">{{ $errors->first('manager.password_confirmation') }}</span>
                                             @endif
                                         </div>
 

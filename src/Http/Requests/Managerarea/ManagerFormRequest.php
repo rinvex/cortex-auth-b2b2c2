@@ -21,13 +21,11 @@ class ManagerFormRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        // @TODO: decide if we will use supermanager ability as a superiority
-        //        or will keep using isOwner functionality as ownership!
-        //$currentUser = $this->user($this->route('guard'));
-        //
-        //if (! $currentUser->can('supermanager') && $currentUser !== $this->route('manager')) {
-        //    throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('managerarea.managers.index'));
-        //}
+        $currentUser = $this->user($this->route('guard'));
+
+        if (! $currentUser->isA('supermanager') && $currentUser !== $this->route('manager')) {
+            throw new GenericException(trans('cortex/auth::messages.action_unauthorized'), route('managerarea.managers.index'));
+        }
 
         return true;
     }
