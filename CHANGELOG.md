@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](CONTRIBUTING.md).
 
 
+## [v2.1.0] - 2019-06-02
+- Update composer deps
+- Drop PHP 7.1 travis test
+- Wrong duplicate route definition
+- Refactor migrations and artisan commands, and tweak service provider publishes functionality
+
 ## [v2.0.0] - 2019-03-03
 - Require PHP 7.2 & Laravel 5.8
 - Utilize includeWhen blade directive
