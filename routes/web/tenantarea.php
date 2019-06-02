@@ -14,7 +14,6 @@ Route::domain('{subdomain}.'.domain())->group(function () {
             Route::post('logout')->name('logout')->uses('AuthenticationController@logout');
 
             // Registration Routes
-            Route::get('register')->name('register')->uses('RedirectionController@registration');
             Route::get('register')->name('register')->uses('RegistrationController@form');
             Route::post('register')->name('register.process')->uses('RegistrationController@register');
 
