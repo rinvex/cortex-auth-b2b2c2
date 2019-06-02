@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Cortex\Auth\B2B2C2\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Rinvex\Support\Traits\ConsoleTools;
 
 class AuthServiceProvider extends ServiceProvider
 {
+    use ConsoleTools;
+
     /**
      * Bootstrap any application services.
      *
@@ -31,16 +34,6 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         // Publish Resources
-        ! $this->app->runningInConsole() || $this->publishResources();
-    }
-
-    /**
-     * Publish resources.
-     *
-     * @return void
-     */
-    protected function publishResources(): void
-    {
-        $this->publishes([realpath(__DIR__.'/../../resources/views') => resource_path('views/vendor/cortex/auth')], 'cortex-auth-views');
+        ! $this->app->runningInConsole() || $this->publishesViews('cortex/auth');
     }
 }
