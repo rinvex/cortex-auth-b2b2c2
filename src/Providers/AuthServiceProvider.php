@@ -34,6 +34,6 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         // Publish Resources
-        ! $this->app->runningInConsole() || $this->publishesViews('cortex/auth');
+        ! $this->app->runningInConsole() || $this->publishesViews('cortex/auth', true);
     }
 }
