@@ -186,7 +186,7 @@ class MembersController extends AuthorizedController
             'resource' => trans('cortex/auth::common.member'),
             'tabs' => 'managerarea.members.tabs',
             'id' => 'managerarea-members-import-logs-table',
-        ])->render('cortex/foundation::managerarea.pages.datatable-import-logs');
+        ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
     /**

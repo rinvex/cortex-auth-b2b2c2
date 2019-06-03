@@ -133,7 +133,7 @@ class RolesController extends AuthorizedController
             'resource' => trans('cortex/auth::common.role'),
             'tabs' => 'managerarea.roles.tabs',
             'id' => 'managerarea-roles-import-logs-table',
-        ])->render('cortex/foundation::managerarea.pages.datatable-import-logs');
+        ])->render('cortex/foundation::managerarea.pages.datatable-tab');
     }
 
     /**
